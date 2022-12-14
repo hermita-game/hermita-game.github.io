@@ -1,0 +1,83 @@
+---
+export interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<div class="grid">
+  <div class="logo"></div>
+  <div class="title">{title}</div>
+  <div class="sidebar"></div>
+  <div id="page-content">
+    <slot />
+  </div>
+
+  <div class="grid-line active" id="line-1"></div>
+  <div class="grid-line active" id="line-2"></div>
+</div>
+
+<script>
+  const transitionDuration = 900;
+  let startTransitionAt = 0;
+  window.addEventListener("navigate", () => {
+    const lines = document.querySelectorAll(".grid-line");
+    lines.forEach((line) => {
+      line.classList.remove("active");
+    });
+    startTransitionAt = Date.now();
+  });
+  window.addEventListener("mount", () => {
+    const lines = document.querySelectorAll(".grid-line");
+    const deltaT = Date.now() - startTransitionAt;
+    if (deltaT < transitionDuration) {
+      setTimeout(() => {
+        lines.forEach((line) => {
+          line.classList.add("active");
+        });
+      }, transitionDuration - deltaT);
+    }
+  });
+</script>
+
+<style>
+  .grid {
+    --spacing: 5rem;
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--spacing) 1fr;
+    grid-template-rows: var(--spacing) 1fr;
+    width: 100%;
+    height: 100%;
+  }
+  .grid-line {
+    position: absolute;
+    --width: 1px;
+    background: #fff;
+    opacity: 0.4;
+    transition: transform 0.7s ease-in-out;
+  }
+  #line-1 {
+    top: var(--spacing);
+    left: 0;
+    width: 100%;
+    height: var(--width);
+    transform-origin: 5rem 50%;
+    transform: scaleX(0);
+  }
+  #line-2 {
+    top: 0;
+    left: var(--spacing);
+    width: var(--width);
+    height: 100%;
+    transform-origin: 50% 5rem;
+    transform: scaleY(0);
+  }
+  #line-1.active {
+    transform: scaleX(1);
+  }
+  #line-2.active {
+    transform: scaleY(1);
+  }
+</style>

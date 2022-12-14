@@ -1,5 +1,7 @@
 ---
+import Grid from "./Grid.astro";
 import Smoke from "./Smoke.astro";
+import { Spa } from "astro-spa";
 
 export interface Props {
   title: string;
@@ -19,21 +21,32 @@ const { title } = Astro.props;
   </head>
   <body>
     <Smoke />
-    <slot />
+    <Grid title={title}>
+      <slot />
+    </Grid>
+    <Spa
+      defaultAnimation={false}
+      containerSelector={"#page-content"}
+      progressBar={false}
+    />
   </body>
 </html>
 <style is:global>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
   :root {
-    --accent: 124, 58, 237;
-    --accent-gradient: linear-gradient(
-      45deg,
-      rgb(var(--accent)),
-      #da62c4 30%,
-      white 60%
-    );
+    --bg: #15141a;
   }
   html {
     font-family: system-ui, sans-serif;
-    background-color: #f6f6f6;
+    background-color: var(--bg);
+    color: #fff;
+  }
+  html,
+  body {
+    height: 100%;
   }
 </style>

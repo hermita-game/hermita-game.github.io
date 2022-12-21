@@ -7,7 +7,7 @@ const { isHorizontal } = Astro.props;
 ---
 
 <div id="scroll-container" class:list={{horizontal: isHorizontal, vertical: !isHorizontal}}>
-    <div class="content">
+    <div id="scroll-content">
         <slot />
     </div>
 </div>
@@ -23,8 +23,9 @@ const { isHorizontal } = Astro.props;
         width: 100%;
         height: 100%;
     }
-    .content {
+    #scroll-content {
         width: fit-content;
+        padding: 3rem;
     }
 
     .vertical {

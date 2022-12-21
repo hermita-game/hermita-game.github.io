@@ -5,16 +5,9 @@
 	import Gear_20 from './gear_20.svelte';
 	import Gear_60 from './gear_60.svelte';
 	import Gear from './gear.svelte';
-	import { scroll } from '../../scripts/scroll';
 
-	let rotate = 0;
-	let rotate_bg = 0;
-
-	scroll.on(({scroll}: {scroll: number}) => {
-		rotate = scroll;
-	});
-
-	$: rotate_bg = rotate * 0.75;
+	const rotate = 1;
+	const rotate_bg = 0.75;
 </script>
 
 <div class="gears">

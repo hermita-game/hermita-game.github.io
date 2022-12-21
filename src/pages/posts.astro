@@ -1,19 +1,17 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { getCollection } from 'astro:content';
+import BlogList from "../components/BlogList.svelte";
+const allBlogPosts = await getCollection('posts');
+
+// repeat 50 times
+const posts = Array(50).fill(allBlogPosts).flat();
 ---
 
-<Layout title="Welcome to Astro." horizontalScroll>
+<Layout title="Suivez notre blog" horizontalScroll>
   <main>
-    <h1>Welcome to our Blog</h1>
-    <a href="../">Home</a>
-    
+    <h1>Blog d'Epistars</h1>
+    <a href="/">Home</a>
+    <BlogList posts={posts} />
   </main>
 </Layout>
-
-<style>
-  main {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-</style>

@@ -21,15 +21,18 @@ const { title, horizontalScroll } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Serif&display=swap" rel="stylesheet">
   </head>
   <body>
     <Smoke />
+    <Gears />
     <Grid title={title}>
       <Scroll isHorizontal={horizontalScroll}>
         <slot />
       </Scroll>
     </Grid>
-    <Gears client:only />
     <Spa
       defaultAnimation={false}
       containerSelector={"#page-content"}
@@ -47,9 +50,9 @@ const { title, horizontalScroll } = Astro.props;
     --bg: #15141a;
   }
   html {
-    font-family: system-ui, sans-serif;
     background-color: var(--bg);
     color: #fff;
+    
   }
   html,
   body {

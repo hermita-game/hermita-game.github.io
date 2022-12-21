@@ -4,13 +4,16 @@
 	export let y = 0;
 </script>
 
-<div style="bottom:{-y}px;right:{-x}px;transform: translate(50%,50%) rotate({rotate}deg);">
-	<slot />
+<div class="wrap" style="bottom:{-y}px;right:{-x}px;">
+	<div data-scroll-rotate={rotate}>
+		<slot />
+	</div>
 </div>
 
 <style>
-	div {
+	.wrap {
 		position: absolute;
+		transform: translate(50%,50%);
 	}
 	div :global(svg) {
 		margin-bottom: -4px;

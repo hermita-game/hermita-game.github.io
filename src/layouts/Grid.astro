@@ -1,4 +1,6 @@
 ---
+import Hamburger from '../components/hamburger.svelte';
+
 export interface Props {
   title: string;
 }
@@ -7,8 +9,14 @@ const { title } = Astro.props;
 ---
 
 <div class="grid">
-  <div class="logo"></div>
-  <div class="title">{title}</div>
+  <div class="hamburger">
+    <Hamburger client:load />
+  </div>
+  <div class="title">
+    {title.split("").map(letter => (
+      <span>{letter}</span>
+    ))}
+  </div>
   <div class="sidebar"></div>
   <div id="page-content">
     <slot />
@@ -22,26 +30,28 @@ const { title } = Astro.props;
   const transitionDuration = 900;
   let startTransitionAt = 0;
   window.addEventListener("navigate", () => {
-    const lines = document.querySelectorAll(".grid-line");
-    lines.forEach((line) => {
-      line.classList.remove("active");
-    });
+    
     startTransitionAt = Date.now();
   });
   window.addEventListener("mount", () => {
-    const lines = document.querySelectorAll(".grid-line");
     const deltaT = Date.now() - startTransitionAt;
     if (deltaT < transitionDuration) {
       setTimeout(() => {
-        lines.forEach((line) => {
-          line.classList.add("active");
-        });
+        
       }, transitionDuration - deltaT);
     }
   });
 </script>
 
 <style>
+  @font-face {
+    font-family: "BPD";
+    src: url("/fonts/BPdotsUnicaseSquareBold.otf");
+  }
+  @font-face {
+    font-family: 'Runes';
+    src: url('/fonts/PixelRunes.ttf');
+  }
   .grid {
     --spacing: 5rem;
     position: relative;
@@ -63,24 +73,29 @@ const { title } = Astro.props;
     left: 0;
     width: 100%;
     height: var(--width);
-    transform-origin: 5rem 50%;
-    transform: scaleX(0);
   }
   #line-2 {
     top: 0;
     left: var(--spacing);
     width: var(--width);
     height: 100%;
-    transform-origin: 50% 5rem;
-    transform: scaleY(0);
-  }
-  #line-1.active {
-    transform: scaleX(1);
-  }
-  #line-2.active {
-    transform: scaleY(1);
   }
 
-  #page-content {
+  .hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    --size-menu: 3rem;
+  }
+  .title {
+    font-size: 2rem;
+    text-align: right;
+    padding: 1rem;
+    font-weight: 700;
+    font-family: 'BPD';
+  }
+  .title span {
+    width: 1.4rem;
+    display: inline-block;
   }
 </style>

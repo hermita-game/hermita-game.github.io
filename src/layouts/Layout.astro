@@ -4,13 +4,15 @@ import Smoke from "./Smoke.astro";
 import Gears from "../components/gears/gears.svelte";
 import { Spa } from "astro-spa";
 import Scroll from "./Scroll.astro";
+import { navigation } from "./Nav.astro";
 
 export interface Props {
-  title: string;
   horizontalScroll?: boolean;
 }
 
-const { title, horizontalScroll } = Astro.props;
+const { horizontalScroll } = Astro.props;
+const currentNavItem = navigation.find((item) => item.url === Astro.url.pathname);
+const title = currentNavItem?.warmTitle as string;
 ---
 
 <!DOCTYPE html>

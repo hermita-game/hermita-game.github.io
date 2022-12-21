@@ -4,7 +4,7 @@ interface NavigationItem {
     url: string;
     warmTitle: string;
 }
-const navigation: NavigationItem[] = [
+export const navigation: NavigationItem[] = [
     {
         title: "Accueil",
         url: "/",
@@ -32,12 +32,51 @@ const navigation: NavigationItem[] = [
     }
 ];
 ---
-<script>
-    const transitionDuration = 900;
+
+<script define:vars={{ navigation }}>
+    const transitionDuration = 1200;
     let startTransitionAt = 0;
+
+    let currentNavItem;
+    const UpdateNavItem = () => {
+        currentNavItem = navigation.find(item => item.url === window.location.pathname);
+    }
+    UpdateNavItem();
+
     window.addEventListener("navigate", () => {
-        console.log(Astro.props);
+        /* Warm title transition */
         startTransitionAt = Date.now();
+        console.log(currentNavItem);
+        const previous = currentNavItem.warmTitle;
+        UpdateNavItem();
+        console.log(currentNavItem);
+        const current = currentNavItem.warmTitle;
+
+        const container = document.getElementById('nav-title');
+        // adding the required amount of spans
+        for (let i = previous.length; i < current.length; i++)
+            container.prepend(document.createElement('span'));
+
+        // changes a span's font then content
+        const changeSpan = (span, char) => {
+            span.style.fontFamily = 'var(--runic)';
+            setTimeout(() => {
+                span.style.fontFamily = 'var(--normal)';
+                span.innerHTML = char;
+            }, transitionDuration / 2);
+        }
+
+        // randomly timed font change
+        const spans = container.querySelectorAll('span');
+        const delta = spans.length - current.length;
+        spans.forEach((span, i) => {
+            setTimeout(() => {
+                const index = i - delta;
+                console.log(index);
+                const char = index < 0 ? '' : current[index];
+                changeSpan(span, char);
+            }, Math.random() * transitionDuration);
+        });
     });
     window.addEventListener("mount", () => {
         const deltaT = Date.now() - startTransitionAt;

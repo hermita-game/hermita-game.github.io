@@ -26,13 +26,12 @@ export const scroll = {
     init() {
         const container = document.getElementById('scroll-container') as HTMLElement;
         const direction = container.classList.contains("horizontal") ? "horizontal" : "vertical";
-        console.log(container, container.firstElementChild, direction);
         const lenis = new Lenis({
             wrapper: container,
             content: container.firstElementChild as HTMLElement,
             smooth: true,
             gestureDirection: 'both',
-            direction,
+            direction
         });
 
         for (const key in transforms) {

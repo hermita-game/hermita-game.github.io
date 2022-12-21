@@ -1,0 +1,50 @@
+---
+interface NavigationItem {
+    title: string;
+    url: string;
+    warmTitle: string;
+}
+const navigation: NavigationItem[] = [
+    {
+        title: "Accueil",
+        url: "/",
+        warmTitle: "Qui sommes-nous ?"
+    },
+    {
+        title: "Blog",
+        url: "/blog",
+        warmTitle: "Notre frise chronologique"
+    },
+    {
+        title: "Téléchargemer",
+        url: "/telecharger",
+        warmTitle: "Télécharger nos fichiers"
+    },
+    {
+        title: "Wiki",
+        url: "/wiki",
+        warmTitle: "Encyclopédie Hermita"
+    },
+    {
+        title: "Crédits",
+        url: "/credits",
+        warmTitle: "Grâce à ..."
+    }
+];
+---
+<script>
+    const transitionDuration = 900;
+    let startTransitionAt = 0;
+    window.addEventListener("navigate", () => {
+        console.log(Astro.props);
+        startTransitionAt = Date.now();
+    });
+    window.addEventListener("mount", () => {
+        const deltaT = Date.now() - startTransitionAt;
+        if (deltaT < transitionDuration) {
+            setTimeout(() => {
+                
+            }, transitionDuration - deltaT);
+        }
+    });
+</script>

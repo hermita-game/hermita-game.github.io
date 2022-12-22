@@ -16,36 +16,76 @@ export const navigation: NavigationItem[] = [
         warmTitle: "Notre frise chronologique"
     },
     {
-        title: "Téléchargemer",
+        title: "Telecharger",
         url: "/telecharger/",
-        warmTitle: "Télécharger nos fichiers"
+        warmTitle: "Telecharger nos fichiers"
     },
     {
         title: "Wiki",
         url: "/wiki/",
-        warmTitle: "Encyclopédie Hermita"
+        warmTitle: "Encyclopedie Hermita"
     },
     {
-        title: "Crédits",
+        title: "Credits",
         url: "/credits/",
-        warmTitle: "Grâce à ..."
+        warmTitle: "A l'aide de ..."
     }
 ];
 ---
 
 <nav>
-    <ul>
-        {navigation.map(item => (
-            <li>
-                <a href={item.url} class:list={{active: item.url === Astro.url.pathname}}>
-                    {item.title}
-                </a>
-            </li>
-        ))}
-    </ul>
+    {navigation.map(item => (
+        <a href={item.url} class:list={{active: item.url === Astro.url.pathname}}>
+            {item.title}
+        </a>
+    ))}
 </nav>
 
+<style>
+    nav {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 5rem;
+        height: 100%;
+        font-size: 1.2rem;
+        font-weight: 300;
+        overflow: hidden;
+        padding: 4rem;
+    }
+    a {
+        font-size: 1.5rem;
+        display: block;
+        text-decoration: none;
+        font-family: var(--normal);
+        color: var(--text);
+        text-transform: uppercase;
+        transition: transform 500ms;
+        transform-origin: 0 50%;
+        transform: scale(0);
+    }
+    :global(.grid:has(.wrapper-menu.open)) nav > a {
+        transform: scale(1);
+    }
+
+    @keyframes blink {
+        0% { opacity: 0; }
+        50% { opacity: 1; }
+        100% { opacity: 0; }
+    }
+    a:where(.active, :hover)::before {
+        position: absolute;
+        content: '>';
+        transform: translateX(-1.5rem);
+    }
+    a:where(.active)::before {
+        animation: blink 1s infinite;
+    }
+</style>
+
 <script define:vars={{ navigation }}>
+    // the SPA is not working so well yet, waiting for the next release to improve this
+
     const transitionDuration = 1200;
 
     let currentNavItem;
@@ -97,11 +137,13 @@ export const navigation: NavigationItem[] = [
 
         // page transition
         const page = document.getElementById('page-container');
-        page.animate([
-            { opacity: 0 },
-            { opacity: 1 }
-        ], {
-            duration: transitionDuration / 3,
+        window.addEventListener('mount', () => {
+            page.animate([
+                { opacity: 0 },
+                { opacity: 1 }
+            ], {
+                duration: transitionDuration / 3,
+            });
         });
     });
 </script>

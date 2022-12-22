@@ -12,30 +12,41 @@ export const navigation: NavigationItem[] = [
     },
     {
         title: "Blog",
-        url: "/blog",
+        url: "/blog/",
         warmTitle: "Notre frise chronologique"
     },
     {
         title: "Téléchargemer",
-        url: "/telecharger",
+        url: "/telecharger/",
         warmTitle: "Télécharger nos fichiers"
     },
     {
         title: "Wiki",
-        url: "/wiki",
+        url: "/wiki/",
         warmTitle: "Encyclopédie Hermita"
     },
     {
         title: "Crédits",
-        url: "/credits",
+        url: "/credits/",
         warmTitle: "Grâce à ..."
     }
 ];
 ---
 
+<nav>
+    <ul>
+        {navigation.map(item => (
+            <li>
+                <a href={item.url} class:list={{active: item.url === Astro.url.pathname}}>
+                    {item.title}
+                </a>
+            </li>
+        ))}
+    </ul>
+</nav>
+
 <script define:vars={{ navigation }}>
     const transitionDuration = 1200;
-    let startTransitionAt = 0;
 
     let currentNavItem;
     const UpdateNavItem = () => {
@@ -46,44 +57,51 @@ export const navigation: NavigationItem[] = [
     window.addEventListener("navigate", () => {
         /* Warm title transition */
         startTransitionAt = Date.now();
-        console.log(currentNavItem);
-        const previous = currentNavItem.warmTitle;
+        const previous = currentNavItem;
         UpdateNavItem();
-        console.log(currentNavItem);
-        const current = currentNavItem.warmTitle;
+        const current = currentNavItem;
+
+        const previousLink = document.querySelector('nav a[href="' + previous.url + '"]');
+        const currentLink = document.querySelector('nav a[href="' + current.url + '"]');
+        previousLink.classList.remove('active');
+        currentLink.classList.add('active');
 
         const container = document.getElementById('nav-title');
+        const previousTitle = previous.warmTitle;
+        const currentTitle = current.warmTitle;
         // adding the required amount of spans
-        for (let i = previous.length; i < current.length; i++)
+        for (let i = previousTitle.length; i < currentTitle.length; i++)
             container.prepend(document.createElement('span'));
 
         // changes a span's font then content
         const changeSpan = (span, char) => {
             span.style.fontFamily = 'var(--runic)';
+            span.style.fontWeight = '700';
             setTimeout(() => {
                 span.style.fontFamily = 'var(--normal)';
+                span.style.fontWeight = '300';
                 span.innerHTML = char;
-            }, transitionDuration / 2);
+            }, transitionDuration);
         }
 
         // randomly timed font change
         const spans = container.querySelectorAll('span');
-        const delta = spans.length - current.length;
+        const delta = spans.length - currentTitle.length;
         spans.forEach((span, i) => {
             setTimeout(() => {
                 const index = i - delta;
-                console.log(index);
-                const char = index < 0 ? '' : current[index];
+                const char = index < 0 ? '' : currentTitle[index];
                 changeSpan(span, char);
-            }, Math.random() * transitionDuration);
+            }, Math.random() * transitionDuration/2);
         });
-    });
-    window.addEventListener("mount", () => {
-        const deltaT = Date.now() - startTransitionAt;
-        if (deltaT < transitionDuration) {
-            setTimeout(() => {
-                
-            }, transitionDuration - deltaT);
-        }
+
+        // page transition
+        const page = document.getElementById('page-container');
+        page.animate([
+            { opacity: 0 },
+            { opacity: 1 }
+        ], {
+            duration: transitionDuration / 3,
+        });
     });
 </script>

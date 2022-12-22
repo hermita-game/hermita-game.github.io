@@ -5,6 +5,7 @@ import Gears from "../components/gears/gears.svelte";
 import { Spa } from "astro-spa";
 import Scroll from "./Scroll.astro";
 import { navigation } from "./Nav.astro";
+import './global.css';
 
 export interface Props {
   horizontalScroll?: boolean;
@@ -12,7 +13,7 @@ export interface Props {
 
 const { horizontalScroll } = Astro.props;
 const currentNavItem = navigation.find((item) => item.url === Astro.url.pathname);
-const title = currentNavItem?.warmTitle as string;
+const title = currentNavItem ? currentNavItem.warmTitle : "Error";
 ---
 
 <!DOCTYPE html>
@@ -22,10 +23,7 @@ const title = currentNavItem?.warmTitle as string;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=PT+Serif&display=swap" rel="stylesheet">
+    <title>Hello</title>
   </head>
   <body>
     <Smoke />
@@ -37,27 +35,8 @@ const title = currentNavItem?.warmTitle as string;
     </Grid>
     <Spa
       defaultAnimation={false}
-      containerSelector={"#page-content"}
       progressBar={false}
+      containerSelector={"#page-content"}
     />
   </body>
 </html>
-<style is:global>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  :root {
-    --bg: #15141a;
-  }
-  html {
-    background-color: var(--bg);
-    color: #fff;
-    
-  }
-  html,
-  body {
-    height: 100vh;
-  }
-</style>

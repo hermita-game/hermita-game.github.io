@@ -4,14 +4,32 @@ import { getCollection } from 'astro:content';
 import BlogList from "../components/BlogList.svelte";
 const allBlogPosts = await getCollection('posts');
 
-// repeat 50 times
-const posts = Array(50).fill(allBlogPosts).flat();
+const posts =  allBlogPosts.sort((a, b) => a.data.date < b.data.date ? -1 : 1);
+
+// adding the amount of days between each post to the data
+let previous = posts[0];
+for (let i = 1; i < posts.length; i++) {
+  const post = posts[i];
+  const diff = post.data.date.getTime() - previous.data.date.getTime();
+  const days = Math.round(diff / (1000 * 60 * 60 * 24));
+  previous.data.daygap = days;
+  previous = post;
+}
+posts[posts.length - 1].data.daygap = undefined;
+
+for (let i = 0; i < 500; i++) {
+  posts.push(posts[i%posts.length]);
+}
 ---
 
 <Layout horizontalScroll>
   <main>
-    <h1>Blog d'Epistars</h1>
-    <a href="/">Home</a>
     <BlogList posts={posts} />
   </main>
 </Layout>
+
+<style>
+  main {
+    margin-top: 5rem;
+  }
+</style>

@@ -1,7 +1,6 @@
 ---
 title : Des monstres
-date : '20-12-2022'
-tags : []
+date : 2022-12-21
 ---
 
 On peut mourir !

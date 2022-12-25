@@ -6,11 +6,11 @@ interface ScrollArgs {
     velocity: number;
     direction: -1 | 1;
 }
+
 interface Transformer {
     attribute: string;
     transform: (args: ScrollArgs, attr: number) => string;
 }
-
 const transforms: {[key: string]: Transformer} = {
     skew: {
         attribute: 'skew',
@@ -20,6 +20,43 @@ const transforms: {[key: string]: Transformer} = {
         attribute: 'rotate',
         transform: ({ scroll }, attr) => `rotate(${scroll * attr}deg)`
     },
+    scaleX: {
+        attribute: 'scale-x',
+        transform: ({ scroll, limit }, _) => `scaleX(${scroll / limit})`
+    },
+}
+
+interface Call {
+    setup: () => void;
+    call: (args: ScrollArgs) => void;
+    store?: any;
+}
+const calls: {[key: string]: Call} = {
+    timeline: {
+        store: {},
+        setup: () => {
+            const wrap = document.querySelector('[data-scroll-ctx-wrap]') as HTMLElement;
+            const display = document.querySelector('[data-scroll-ctx-display]') as HTMLElement;
+            const children = wrap.children;
+
+            children[0].classList.add('active');
+            display.innerText = children[0].getAttribute('data-scroll-ctx-text') as string;
+
+            calls.timeline.store = { display, children, currentIdx: 0 };
+        },
+        call: ({ scroll, limit }) => {
+            const { display, children, currentIdx } = calls.timeline.store;
+            const percentage = scroll / limit;
+            const index = Math.max(Math.min(Math.floor(percentage * (children.length - 1) + 0.3), children.length - 1), 0);
+            if (index === currentIdx) return;
+
+            children[currentIdx].classList.remove('active');
+            children[index].classList.add('active');
+            calls.timeline.store.currentIdx = index;
+            const text = children[index].getAttribute('data-scroll-ctx-text') as string;
+            display.innerText = text;
+        }
+    }
 }
 
 export const scroll = {
@@ -47,6 +84,14 @@ export const scroll = {
                     }
                 }
             }
+        }
+
+        for (const key in calls) {
+            const call = calls[key];
+            call.setup();
+            lenis.on('scroll', (e: ScrollArgs) => {
+                call.call(e);
+            });
         }
 
         function raf(time: number) {

@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: 'Cinzel';
+    src: url('/fonts/Cinzel-Regular.ttf');
+}
 :root {
     --bg: #15141a;
 }
@@ -11,6 +15,7 @@
 html {
     background-color: var(--bg);
     color: #fff;
+    font-family: 'Raleway', sans-serif;
 }
 
 html,

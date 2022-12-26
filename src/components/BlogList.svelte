@@ -6,7 +6,7 @@
     const toDateString = (date: Date) => date.toLocaleDateString('fr-FR', options).normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 </script>
 
-<ul id="blog-list" data-scroll-skew="0.5" data-scroll-ctx-wrap>
+<ul id="blog-list" data-scroll-ctx-wrap>
     {#each posts as post, i}
         <li
             data-scroll-ctx-text={toDateString(post.data.date)}
@@ -23,37 +23,43 @@
 </ul>
 <p class="date" data-scroll-ctx-display></p>
 
-<style>
+<style lang="scss">
+    $post-width: min(90vw, 16rem);
+    $y-offset: 6rem;
+
     ul {
         display: flex;
         align-items: center;
         justify-content: center;
         list-style: none;
-        --post-width: min(90vw, 16rem);
-        --y-offset: 6rem;
-        padding: 0 calc(50vw - var(--post-width) / 2);
+        padding: 0 calc(50vw - $post-width / 2);
         margin-top: 10rem;
     }
     li {
         position: relative;
+        width: $post-width;
     }
-    .upper .post { --y: -1; }
-    .lower .post { --y:  1; }
     .post {
-        width: var(--post-width);
+        position: absolute;
+        width: $post-width;
         height: min(90vh, 9rem);
         padding: 1rem;
         transition: transform 0.5s ease;
         transform-origin: 0 0;
-        transform: translateY(calc(var(--y) * var(--y-offset))) scale(0.5);
         cursor: pointer;
+    }
+    .upper .post {
+        top: - $y-offset;
+    }
+    .lower .post {
+        top: $y-offset;
     }
     .post:active h2 {
         background-color: black;
         color: white;
     }
     li:global(.active) > .post {
-        transform: none;
+        transform: scale(1.1);
     }
     h2 {
         font-family: 'Pixels';

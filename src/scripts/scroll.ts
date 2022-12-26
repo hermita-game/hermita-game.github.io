@@ -36,6 +36,7 @@ const calls: {[key: string]: Call} = {
         store: {},
         setup: () => {
             const wrap = document.querySelector('[data-scroll-ctx-wrap]') as HTMLElement;
+            if (!wrap) return;
             const display = document.querySelector('[data-scroll-ctx-display]') as HTMLElement;
             const children = wrap.children;
 

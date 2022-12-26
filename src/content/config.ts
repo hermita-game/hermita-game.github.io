@@ -6,7 +6,7 @@ const engineeringBlog = defineCollection({
     date: z.date(),
     tags: z.array(z.string()).optional(),
     image: z.string().optional(),
-    daygap: z.number().optional(),
+    daygap: z.number().optional(), // generated in blog.astro
   },
 });
 

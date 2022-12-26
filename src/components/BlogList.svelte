@@ -1,6 +1,6 @@
 <script lang="ts">
     import Dots from "./Dots.svelte";
-    import marked from "marked";
+    import { marked } from "marked";
     import readingTime from "reading-time";
 
     export let posts: any[] = [];

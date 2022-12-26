@@ -3,29 +3,28 @@
 </script>
 
 <div class="dots">
-    {#if amount === 0}
-        <div class="diagonal" />
-    {:else}
+    {#if amount > 0}
         <div class="line" />
-        {#if amount < 10}
-            {#each new Array(amount) as _}
-                <div class="dot" />
-            {/each}
-        {:else}
-            {#each new Array(5) as _}
-                <div class="dot" />
-            {/each}
-            <div class="three-dots" />
-            {#each new Array(5) as _}
-                <div class="dot" />
-            {/each}
-        {/if}
+    {/if}
+    {#if amount < 10}
+        {#each new Array(amount) as _}
+            <div class="dot" />
+        {/each}
+    {:else}
+        {#each new Array(5) as _}
+            <div class="dot" />
+        {/each}
+        <div class="three-dots" />
+        {#each new Array(5) as _}
+            <div class="dot" />
+        {/each}
     {/if}
 </div>
 
 <style lang="scss">
+    @use "sass:math";
     $post-width: min(90vw, 16rem);
-    $y-offset: 6rem;
+    $y-offset: 8rem;
     $line: 1px solid white;
 
     .dots {
@@ -43,7 +42,6 @@
         border-left: $line;
         transition: height 0.5s ease;
         z-index: -1;
-        margin-left: -1px;
     }
     :global(.upper) > .dots > .line {
         top: -$y-offset;

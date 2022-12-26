@@ -32,6 +32,7 @@ const title = currentNavItem ? currentNavItem.warmTitle : "Error";
       <Scroll isHorizontal={horizontalScroll}>
         <slot />
       </Scroll>
+      <slot name="outscroll" />
     </Grid>
     <Spa
       defaultAnimation={false}

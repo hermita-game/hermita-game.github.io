@@ -15,7 +15,7 @@
         >
             <div class="post">
                 <h2>{post.data.title}</h2>
-                <p class="text">{post.body}</p>
+                <p>OUVRIR</p>
             </div>
             <Dots amount={post.data.daygap} />
         </li>
@@ -25,7 +25,7 @@
 
 <style lang="scss">
     $post-width: min(90vw, 16rem);
-    $y-offset: 6rem;
+    $y-offset: 8rem;
 
     ul {
         display: flex;
@@ -42,8 +42,6 @@
     .post {
         position: absolute;
         width: $post-width;
-        height: min(90vh, 9rem);
-        padding: 1rem;
         transition: transform 0.5s ease;
         transform-origin: 0 0;
         cursor: pointer;
@@ -60,17 +58,23 @@
     }
     li:global(.active) > .post {
         transform: scale(1.1);
+        p {
+            opacity: 1;
+        }
     }
     h2 {
         font-family: 'Pixels';
         font-size: 1rem;
-        margin: -2rem 0 0 -2rem;
         padding: 0.5rem;
         background-color: white;
         color: black;
     }
-    .text {
-        margin: 1rem;
+    .post p {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        font-family: 'Pixels';
+        font-size: 1rem;
+        padding: 0.5rem;
     }
 
     .date {

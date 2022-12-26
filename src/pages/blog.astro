@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import { getCollection } from 'astro:content';
 import BlogList from "../components/BlogList.svelte";
+import Post from "../components/Post.astro";
 const allBlogPosts = await getCollection('posts');
 
 const posts =  allBlogPosts.sort((a, b) => a.data.date < b.data.date ? -1 : 1);
@@ -26,6 +27,7 @@ for (let i = 0; i < 50; i++) {
   <main>
     <BlogList posts={posts} />
   </main>
+  <Post slot="outscroll" />
 </Layout>
 
 <style>

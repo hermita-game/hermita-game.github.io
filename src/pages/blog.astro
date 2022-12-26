@@ -1,11 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { getCollection } from 'astro:content';
+import { getCollection } from "astro:content";
 import BlogList from "../components/BlogList.svelte";
 import Post from "../components/Post.astro";
-const allBlogPosts = await getCollection('posts');
+const allBlogPosts = await getCollection("posts");
 
-const posts =  allBlogPosts.sort((a, b) => a.data.date < b.data.date ? -1 : 1);
+const posts = allBlogPosts.sort((a, b) => (a.data.date < b.data.date ? -1 : 1));
 
 // adding the amount of days between each post to the data
 let previous = posts[0];
@@ -19,7 +19,7 @@ for (let i = 1; i < posts.length; i++) {
 posts[posts.length - 1].data.daygap = undefined;
 
 for (let i = 0; i < 50; i++) {
-  posts.push(posts[i%posts.length]);
+  posts.push(posts[i % posts.length]);
 }
 ---
 
@@ -27,7 +27,7 @@ for (let i = 0; i < 50; i++) {
   <main>
     <BlogList posts={posts} />
   </main>
-  <Post slot="outscroll" />
+  <Post slot="after" />
 </Layout>
 
 <style>

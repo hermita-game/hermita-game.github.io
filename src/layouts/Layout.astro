@@ -26,13 +26,14 @@ const title = currentNavItem ? currentNavItem.warmTitle : "Error";
     <title>{title}</title>
   </head>
   <body>
-    <Smoke />
+    <!-- <Smoke /> -->
     <Gears />
     <Grid title={title}>
+      <slot name="before" />
       <Scroll isHorizontal={horizontalScroll}>
         <slot />
       </Scroll>
-      <slot name="outscroll" />
+      <slot name="after" />
     </Grid>
     <Spa
       defaultAnimation={false}

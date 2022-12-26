@@ -1,52 +1,78 @@
-<div class="post-display-wrap">
-    <div class="post-display">
-        <p class="date">Date</p>
-        <p class="content">Content</p>
-    </div>
+<div class="wrap">
+  <div class="post-display" data-lenis-prevent></div>
 </div>
 
 <script>
-    const wrap = document.querySelector('.post-display-wrap') as HTMLElement;
+  const display = document.querySelector(".post-display") as HTMLElement;
 
-    function showPost(post: Element) {
-        // grabbing the title
-        const title = post.querySelector('h2') as HTMLElement;
-        // getting the needed translation
-        const { x, y } = title.getBoundingClientRect();
-        const { x: x2, y: y2 } = wrap.getBoundingClientRect();
-        console.log({ x, y, x2, y2 });
-        const delta = { x: x - x2, y: y - y2 };
-        title.style.transform = `translate(${delta.x}px, ${delta.y}px)`;
-    }
+  function showPost(post: Element) {
+    // grabbing the title
+    const title = post.querySelector("h2") as HTMLElement;
+    // getting the needed translation
+    const { x, y, width, height } = title.getBoundingClientRect();
+    const padding = -16;
+    const { x: x2, y: y2 } = display.getBoundingClientRect();
+    const delta = { x: x2 - x + padding, y: y2 - y + padding / 2 };
 
-    const posts = document.getElementsByClassName('post');
-    for (let i = 0; i < posts.length; i++) {
-        posts[i].addEventListener('click', () => {
-            showPost(posts[i]);
-        });
-    }
+    // cloning the title
+    const clone = title.cloneNode(true) as HTMLElement;
+    clone.className = title.className;
+    clone.style.position = "fixed";
+    clone.style.top = `${y}px`;
+    clone.style.left = `${x}px`;
+    clone.style.width = `${width}px`;
+    clone.style.height = `${height}px`;
+    clone.style.transition = "transform 0.5s ease";
+    clone.style.zIndex = "4";
+    document.body.appendChild(clone);
+    setTimeout(() => {
+      clone.style.transform = `translate(${delta.x}px, ${delta.y}px)`;
+    }, 0);
+
+    // showing the post
+    const wrap = display.parentElement as HTMLElement;
+    wrap.classList.add("show");
+
+    display.innerHTML = (post.previousElementSibling as HTMLElement).innerHTML;
+  }
+
+  const posts = document.getElementsByClassName("post");
+  for (let i = 0; i < posts.length; i++) {
+    posts[i].addEventListener("click", () => {
+      showPost(posts[i]);
+    });
+  }
 </script>
 
 <style lang="scss">
-    $pad-x: 2rem;
-    $pad-y: 5rem;
-    .wrap {
-        opacity: 0;
-        pointer-events: none;
-        position: absolute;
-        top: 0;
-        left: 0;
-        padding: 5rem 2rem;
-        width: 100%;
-        height: 100%;
-        z-index: 2;
-        background-color: rgba(0, 0, 0, 0.5);
+  .wrap {
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 1rem 2rem;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: opacity 500ms;
+    &:global(.show) {
+      opacity: 1;
+      pointer-events: all;
+      transition-delay: 500ms;
     }
-    .post-display {
-        width: 100%;
-        height: 100%;
-        background-color: var(--bg);
-        border-radius: 5px;
-        padding: 10px;
-    }
+  }
+  .post-display {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg);
+    padding: 2rem;
+    font-size: 1rem;
+    overscroll-behavior: contain;
+    overflow-y: auto;
+  }
+  .post-display :global(p) {
+    margin: 1rem 0;
+  }
 </style>

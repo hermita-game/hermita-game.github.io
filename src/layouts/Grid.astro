@@ -112,10 +112,10 @@ const { title } = Astro.props;
     height: 100%;
   }
 
-  .grid:has(.wrapper-menu.open) .sidebar {
+  .grid:global(.nav-open) .sidebar {
     width: min(100vw, 30rem);
   }
-  .grid:has(.wrapper-menu.open) .line {
+  .grid:global(.nav-open) .line {
     height: 0;
   }
 </style>

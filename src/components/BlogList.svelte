@@ -1,5 +1,7 @@
 <script lang="ts">
     import Dots from "./Dots.svelte";
+    import marked from "marked";
+    import readingTime from "reading-time";
 
     export let posts: any[] = [];
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' } as Intl.DateTimeFormatOptions;
@@ -13,9 +15,12 @@
             class:upper={i%2==0}
             class:lower={i%2==1}
         >
+            <div style="display:none;">
+                {@html marked.parse(post.body)}
+            </div>
             <div class="post">
                 <h2>{post.data.title}</h2>
-                <p>OUVRIR</p>
+                <p>LIRE (~{Math.round(readingTime(post.body).minutes)} min)</p>
             </div>
             <Dots amount={post.data.daygap} />
         </li>
@@ -56,11 +61,10 @@
         background-color: black;
         color: white;
     }
-    li:global(.active) > .post {
-        transform: scale(1.1);
-        p {
-            opacity: 1;
-        }
+    li:global(.active) {
+        &.upper .post { transform: translateY(0.3 * $y-offset); }
+        &.lower .post { transform: translateY(-0.3 * $y-offset); }
+        .post p { opacity: 1; }
     }
     h2 {
         font-family: 'Pixels';

@@ -20,6 +20,8 @@
     "svelte": "^3.55.0"
   },
   "devDependencies": {
+    "marked": "^4.2.5",
+    "reading-time": "^1.5.0",
     "sass": "^1.57.1"
   }
 }

@@ -1,5 +1,12 @@
 <script>
 	export let open = false;
+	const update = () => {
+		open = !open;
+		if (open)
+			document.querySelector('body > .grid').classList.add('nav-open')
+		else
+			document.querySelector('body > .grid').classList.remove('nav-open')
+	}
 </script>
 
 <!-------- Thanks José Rosário for the codepen  -------->
@@ -7,9 +14,7 @@
 <button
 	class:open
 	class="wrapper-menu"
-	on:click={() => {
-		open = !open;
-	}}
+	on:click={update}
 	aria-label="Menu"
 >
 	<div class="line-menu half start" />

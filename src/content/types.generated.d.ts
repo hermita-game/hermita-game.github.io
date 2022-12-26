@@ -64,13 +64,6 @@ declare module 'astro:content' {
   collection: "posts",
   data: InferEntrySchema<"posts">
 },
-"nouvelan.md": {
-  id: "nouvelan.md",
-  slug: "nouvelan",
-  body: string,
-  collection: "posts",
-  data: InferEntrySchema<"posts">
-},
 "site.md": {
   id: "site.md",
   slug: "site",

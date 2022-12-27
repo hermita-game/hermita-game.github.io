@@ -1,148 +1,163 @@
 ---
 interface NavigationItem {
-    title: string;
-    url: string;
-    warmTitle: string;
+  title: string;
+  url: string;
+  warmTitle: string;
 }
 export const navigation: NavigationItem[] = [
-    {
-        title: "Accueil",
-        url: "/",
-        warmTitle: "Qui sommes-nous ?"
-    },
-    {
-        title: "Blog",
-        url: "/blog/",
-        warmTitle: "Notre frise chronologique"
-    },
-    {
-        title: "Telecharger",
-        url: "/telecharger/",
-        warmTitle: "Telecharger nos fichiers"
-    },
-    {
-        title: "Wiki",
-        url: "/wiki/",
-        warmTitle: "Encyclopedie Hermita"
-    },
-    {
-        title: "Credits",
-        url: "/credits/",
-        warmTitle: "A l'aide de ..."
-    }
+  {
+    title: "Accueil",
+    url: "/",
+    warmTitle: "Qui sommes-nous ?",
+  },
+  {
+    title: "Blog",
+    url: "/blog/",
+    warmTitle: "Notre frise chronologique",
+  },
+  {
+    title: "Telecharger",
+    url: "/telecharger/",
+    warmTitle: "Telecharger nos fichiers",
+  },
+  {
+    title: "Wiki",
+    url: "/wiki/",
+    warmTitle: "Encyclopedie Hermita",
+  },
+  {
+    title: "Credits",
+    url: "/credits/",
+    warmTitle: "A l'aide de ...",
+  },
 ];
 ---
 
 <nav>
-    {navigation.map(item => (
-        <a href={item.url} class:list={{active: item.url === Astro.url.pathname}}>
-            {item.title}
-        </a>
-    ))}
+  {
+    navigation.map((item) => (
+      <a
+        href={item.url}
+        class:list={{ active: item.url === Astro.url.pathname }}
+      >
+        {item.title}
+      </a>
+    ))
+  }
 </nav>
 
 <style>
-    nav {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        gap: 5rem;
-        height: 100%;
-        font-size: 1.2rem;
-        font-weight: 300;
-        overflow: hidden;
-    }
-    a {
-        font-size: 1.5rem;
-        display: block;
-        text-decoration: none;
-        font-family: var(--normal);
-        color: var(--text);
-        text-transform: uppercase;
-        transition: transform 500ms;
-        transform-origin: 0 50%;
-        transform: scale(0);
-    }
-    :global(.grid.nav-open) nav > a {
-        transform: scale(1);
-    }
+  nav {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5rem;
+    height: 100%;
+    font-size: 1.2rem;
+    font-weight: 300;
+    overflow: hidden;
+  }
+  a {
+    margin-left: 4rem;
+    font-size: 1.5rem;
+    display: block;
+    text-decoration: none;
+    font-family: var(--normal);
+    color: var(--text);
+    text-transform: uppercase;
+    transition: transform 500ms;
+    transform-origin: 0 50%;
+    transform: scale(0);
+  }
+  :global(.grid.nav-open) nav > a {
+    transform: scale(1);
+  }
 
-    @keyframes blink {
-        0% { opacity: 0; }
-        50% { opacity: 1; }
-        100% { opacity: 0; }
+  @keyframes blink {
+    0% {
+      opacity: 0;
     }
-    a:where(.active, :hover)::before {
-        position: absolute;
-        content: '>';
-        transform: translateX(-1.5rem);
+    50% {
+      opacity: 1;
     }
-    a:where(.active)::before {
-        animation: blink 1s infinite;
+    100% {
+      opacity: 0;
     }
+  }
+  a:where(.active, :hover)::before {
+    position: absolute;
+    content: ">";
+    transform: translateX(-1.5rem);
+  }
+  a:where(.active)::before {
+    animation: blink 1s infinite;
+  }
 </style>
 
 <script define:vars={{ navigation }}>
-    // the SPA is not working so well yet, waiting for the next release to improve this
+  // the SPA is not working so well yet, waiting for the next release to improve this
 
-    const transitionDuration = 1200;
+  const transitionDuration = 1200;
 
-    let currentNavItem;
-    const UpdateNavItem = () => {
-        currentNavItem = navigation.find(item => item.url === window.location.pathname);
-    }
+  let currentNavItem;
+  const UpdateNavItem = () => {
+    currentNavItem = navigation.find(
+      (item) => item.url === window.location.pathname
+    );
+  };
+  UpdateNavItem();
+
+  window.addEventListener("navigate", () => {
+    /* Warm title transition */
+    startTransitionAt = Date.now();
+    const previous = currentNavItem;
     UpdateNavItem();
+    const current = currentNavItem;
 
-    window.addEventListener("navigate", () => {
-        /* Warm title transition */
-        startTransitionAt = Date.now();
-        const previous = currentNavItem;
-        UpdateNavItem();
-        const current = currentNavItem;
+    const previousLink = document.querySelector(
+      'nav a[href="' + previous.url + '"]'
+    );
+    const currentLink = document.querySelector(
+      'nav a[href="' + current.url + '"]'
+    );
+    previousLink.classList.remove("active");
+    currentLink.classList.add("active");
 
-        const previousLink = document.querySelector('nav a[href="' + previous.url + '"]');
-        const currentLink = document.querySelector('nav a[href="' + current.url + '"]');
-        previousLink.classList.remove('active');
-        currentLink.classList.add('active');
+    const container = document.getElementById("nav-title");
+    const previousTitle = previous.warmTitle;
+    const currentTitle = current.warmTitle;
+    // adding the required amount of spans
+    for (let i = previousTitle.length; i < currentTitle.length; i++)
+      container.prepend(document.createElement("span"));
 
-        const container = document.getElementById('nav-title');
-        const previousTitle = previous.warmTitle;
-        const currentTitle = current.warmTitle;
-        // adding the required amount of spans
-        for (let i = previousTitle.length; i < currentTitle.length; i++)
-            container.prepend(document.createElement('span'));
+    // changes a span's font then content
+    const changeSpan = (span, char) => {
+      span.style.fontFamily = "var(--runic)";
+      span.style.fontWeight = "700";
+      setTimeout(() => {
+        span.style.fontFamily = "var(--normal)";
+        span.style.fontWeight = "300";
+        span.innerHTML = char;
+      }, transitionDuration);
+    };
 
-        // changes a span's font then content
-        const changeSpan = (span, char) => {
-            span.style.fontFamily = 'var(--runic)';
-            span.style.fontWeight = '700';
-            setTimeout(() => {
-                span.style.fontFamily = 'var(--normal)';
-                span.style.fontWeight = '300';
-                span.innerHTML = char;
-            }, transitionDuration);
-        }
-
-        // randomly timed font change
-        const spans = container.querySelectorAll('span');
-        const delta = spans.length - currentTitle.length;
-        spans.forEach((span, i) => {
-            setTimeout(() => {
-                const index = i - delta;
-                const char = index < 0 ? '' : currentTitle[index];
-                changeSpan(span, char);
-            }, Math.random() * transitionDuration/2);
-        });
-
-        // page transition
-        const page = document.getElementById('page-container');
-        window.addEventListener('mount', () => {
-            page.animate([
-                { opacity: 0 },
-                { opacity: 1 }
-            ], {
-                duration: transitionDuration / 3,
-            });
-        });
+    // randomly timed font change
+    const spans = container.querySelectorAll("span");
+    const delta = spans.length - currentTitle.length;
+    spans.forEach((span, i) => {
+      setTimeout(() => {
+        const index = i - delta;
+        const char = index < 0 ? "" : currentTitle[index];
+        changeSpan(span, char);
+      }, (Math.random() * transitionDuration) / 2);
     });
+
+    // page transition
+    const page = document.getElementById("page-container");
+    window.addEventListener("mount", () => {
+      page.animate([{ opacity: 0 }, { opacity: 1 }], {
+        duration: transitionDuration / 3,
+      });
+    });
+  });
 </script>

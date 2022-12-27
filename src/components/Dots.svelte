@@ -3,9 +3,7 @@
 </script>
 
 <div class="dots">
-    {#if amount > 0}
-        <div class="line" />
-    {/if}
+    <div class="line" />
     {#if amount < 10}
         {#each new Array(amount) as _}
             <div class="dot" />

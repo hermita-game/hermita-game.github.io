@@ -89,4 +89,13 @@
         font-family: 'Pixels';
         text-transform: uppercase;
     }
+
+    @media (max-width: 700px) {
+        .date {
+            font-size: 1rem;
+            right: 1rem;
+            bottom: 1rem;
+            left: unset;
+        }
+    }
 </style>

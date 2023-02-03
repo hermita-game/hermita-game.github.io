@@ -1,8 +1,9 @@
-import { z, defineCollection } from 'astro:content';
+import { z, defineCollection } from "astro:content";
 
 const engineeringBlog = defineCollection({
   schema: {
     title: z.string(),
+    author: z.string(),
     date: z.date(),
     tags: z.array(z.string()).optional(),
     image: z.string().optional(),

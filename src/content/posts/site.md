@@ -6,7 +6,7 @@ date: 2022-12-20
 
 # Le _vrai_ début du site
 
-Le vrai parce qu'il y a eu plein de versions avant lui. En passant par des animations powerpoint et autres exagérations, les retours du groupe m'ont fait aller vers quelque chose d'un peu plus sobre. ![(essai précédent)](https://seyti67.github.io/epistars/)
+Le vrai parce qu'il y a eu plein de versions avant lui. En passant par des animations powerpoint et autres exagérations, les retours du groupe m'ont fait aller vers quelque chose d'un peu plus sobre. !([essai précédent](https://seyti67.github.io/epistars/))
 
 ## Le choix du thème
 

@@ -18,9 +18,6 @@ for (let i = 1; i < posts.length; i++) {
 }
 posts[posts.length - 1].data.daygap = undefined;
 
-for (let i = 0; i < 50; i++) {
-  posts.push(posts[i % posts.length]);
-}
 ---
 
 <Layout horizontalScroll>

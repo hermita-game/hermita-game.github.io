@@ -9,11 +9,13 @@ image: /images/housing_island.PNG
 
 Lorsqu'on a regardé la plupart des jeux produits les années précédentes, on s'est vite rendu compte que le level design était souvent négligé et par conséquent souvent "baclé". Pour éviter de créer le même problème dans Hermita, on a décidé que je m'occuperai directement de commencer à construire les zones de jeu pour être sûr de ne pas louper cette étape, qui est, mine de rien essentielle.
 
+
 ## L'île du housing
 
 Premièrement, il a fallu déterminer le nombre de maps que j'allais devoir faire, nous sommes donc partis sur une première map qui serait la petite île de la partie solo/housing du jeu. 
 
 Il n'y avait pas beaucoup de contraintes à part préparer les emplacements où intégrer les différents établis et le portail donc je suis parti sur quelque chose de plutôt simple et petit pour donner un petit côté tranquille et chaleureux. (je ne suis pas encore convaincu par les couleurs que j'ai choisi donc elle vont peut être changer au cours du développement)
+
 
 ## Le premier niveau
 
@@ -24,6 +26,8 @@ J'ai donc décidé de séparer l'île en 3 :
 - Une première île dans le thème d'un temple en ruine où se trouveraient : le portail de spawn, la zone de combat du dernier boss, ainsi que quelques emplacements de camps de mobs très simples pour que le joueur puisse s'exercer sur des petits monstres très simples avant d'aller dans la suite du jeu.
 - Une seconde île composée de 2 zones : une zone en ruine pour faire lien avec la première île et une zone de forêt qui se trouve autour des ruines. Dans ces 2 zones, différents types de mobs seront trouvés ainsi que les emplacements des 2 premiers mini boss.
 - Une troisième île qui accueillera encore de nouveaux types de mobs ainsi que le 3ème mini boss du niveau
+
+
 
 ## Progression actuelle
 

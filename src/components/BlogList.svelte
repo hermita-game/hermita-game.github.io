@@ -1,7 +1,6 @@
 <script lang="ts">
     import Dots from "./Dots.svelte";
     import { marked } from "marked";
-    import readingTime from "reading-time";
 
     export let posts: any[] = [];
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' } as Intl.DateTimeFormatOptions;
@@ -12,6 +11,7 @@
     {#each posts as post, i}
         <li
             data-scroll-ctx-text={toDateString(post.data.date)}
+			data-scroll-ctx-image={post.data.image}
             class:upper={i%2==0}
             class:lower={i%2==1}
         >
@@ -20,13 +20,13 @@
             </div>
             <div class="post">
                 <h2>{post.data.title}</h2>
-                <p>LIRE (~{Math.round(readingTime(post.body).minutes)} min)</p>
             </div>
             <Dots amount={post.data.daygap} />
         </li>
     {/each}
 </ul>
 <p class="date" data-scroll-ctx-display></p>
+<img src="" class="image" data-scroll-ctx-image-display>
 
 <style lang="scss">
     $post-width: min(90vw, 16rem);
@@ -53,17 +53,20 @@
     }
     .upper .post {
         top: - $y-offset;
+		transform: translateY(0.3 * $y-offset);
     }
     .lower .post {
-        top: $y-offset;
+        top: 0.8 * $y-offset;
+		transform: translateY(-0.3 * $y-offset);
     }
     .post:active h2 {
         background-color: black;
         color: white;
     }
     li:global(.active) {
-        &.upper .post { transform: translateY(0.3 * $y-offset); }
-        &.lower .post { transform: translateY(-0.3 * $y-offset); }
+        .post {
+			transform: none;
+		}
         .post p { opacity: 1; }
     }
     h2 {
@@ -89,6 +92,18 @@
         font-family: 'Pixels';
         text-transform: uppercase;
     }
+	.image {
+		position: fixed;
+		top: 10rem;
+		left: 10rem;
+		min-width: 10rem;
+		min-height: 10rem;
+		max-height: calc(100vh - 20rem);
+		z-index: -2;
+		filter: brightness(0.7);
+		opacity: 0;
+		transition: opacity 0.5s ease;
+	}
 
     @media (max-width: 700px) {
         .date {
@@ -97,5 +112,15 @@
             bottom: 1rem;
             left: unset;
         }
+		.image {
+			top: unset;
+			bottom: 5rem;
+			left: 0.5rem;
+			min-width: 8rem;
+			min-height: 8rem;
+			max-width: calc(100vw - 1rem);
+			max-height: calc(100vh - 16rem);
+		}
+
     }
 </style>

@@ -16,8 +16,8 @@ for (let i = 1; i < posts.length; i++) {
   previous.data.daygap = days;
   previous = post;
 }
-posts[posts.length - 1].data.daygap = undefined;
-
+const lastPost = posts[posts.length - 1];
+lastPost.data.daygap = Math.round((Date.now() - lastPost.data.date.getTime()) / (1000 * 60 * 60 * 24));
 ---
 
 <Layout horizontalScroll>

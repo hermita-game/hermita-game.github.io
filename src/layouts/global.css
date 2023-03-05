@@ -1,24 +1,48 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 @font-face {
-    font-family: 'Cinzel';
-    src: url('/fonts/Cinzel-Regular.ttf');
+  font-family: "Cinzel";
+  src: url("/fonts/Cinzel-Regular.ttf");
 }
 :root {
-    --bg: #15141a;
+  --bg: #15141a;
 }
 
 html {
-    background-color: var(--bg);
-    color: #fff;
-    font-family: 'Raleway', sans-serif;
+  background-color: var(--bg);
+  color: #fff;
+  font-family: "Raleway", sans-serif;
 }
 
 html,
 body {
-    height: 100vh;
+  height: 100vh;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #13181e;
+  box-shadow: inset 0 0 3px #676767;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #dee0de;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #a9a9a9;
 }

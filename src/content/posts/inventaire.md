@@ -2,6 +2,7 @@
 title: Inventaire
 author: Antoine
 date: 2023-02-28
+image: /images/inventory.png
 ---
 
 # Réalisation de l'inventaire

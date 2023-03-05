@@ -36,16 +36,16 @@
     }
     .line {
         position: absolute;
-        height: $y-offset;
+        height: 0;
         border-left: $line;
         transition: height 0.5s ease;
         z-index: -1;
     }
     :global(.upper) > .dots > .line {
-        top: -$y-offset;
+        bottom: 0;
     }
     :global(.active) > .dots > .line {
-        height: 0;
+		height: $y-offset;
     }
     .dot {
         $size: 0.5rem;

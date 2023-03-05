@@ -1,7 +1,7 @@
 ---
 title: Systeme de blog
 author: Antoine
-date: 2022-12-20
+date: 2022-12-27
 ---
 
 Créer un blog performant et fonctionnel nécessite du temps, de la patience et de la persévérance. C'est exactement ce que j'ai découvert en programmant ce site lors de mon séjour en Allemagne. Il m'a fallu 5 jours de travail acharné pour finaliser ce projet et le rendre accessible à tous.

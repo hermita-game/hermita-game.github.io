@@ -77,8 +77,9 @@ const calls: { [key: string]: Call } = {
       const image = children[index].getAttribute(
         "data-scroll-ctx-image"
       ) as string;
-      imageDisplay.src = image || "";
-      imageDisplay.style.opacity = image ? "1" : "0";
+      imageDisplay.style.backgroundImage = image
+        ? `url(${image})`
+        : `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3C/svg%3E")`;
     },
   },
 };

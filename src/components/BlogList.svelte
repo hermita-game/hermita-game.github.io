@@ -26,7 +26,7 @@
     {/each}
 </ul>
 <p class="date" data-scroll-ctx-display></p>
-<img src="" class="image" data-scroll-ctx-image-display>
+<div class="image" data-scroll-ctx-image-display />
 
 <style lang="scss">
     $post-width: min(90vw, 16rem);
@@ -96,13 +96,14 @@
 		position: fixed;
 		top: 10rem;
 		left: 10rem;
-		min-width: 10rem;
-		min-height: 10rem;
-		max-height: calc(100vh - 20rem);
+		height: calc(100vh - 15rem);
+		width: calc(100vw - 15rem);
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center;
 		z-index: -2;
 		filter: brightness(0.7);
-		opacity: 0;
-		transition: opacity 0.5s ease;
+		transition: background-image 0.5s ease;
 	}
 
     @media (max-width: 700px) {
@@ -116,10 +117,8 @@
 			top: unset;
 			bottom: 5rem;
 			left: 0.5rem;
-			min-width: 8rem;
-			min-height: 8rem;
-			max-width: calc(100vw - 1rem);
-			max-height: calc(100vh - 16rem);
+			width: calc(100vw - 1rem);
+			height: calc(100vh - 16rem);
 		}
 
     }

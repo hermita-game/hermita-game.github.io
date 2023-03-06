@@ -75,13 +75,6 @@
     });
   };
   addEventListeners();
-  window.addEventListener("mount", () => {
-    console
-    if (window.location.pathname !== "/blog/") return;
-    addEventListeners();
-    display = document.querySelector(".post-display") as HTMLElement;
-    wrap = display.parentElement as HTMLElement;
-  });
 </script>
 
 <style lang="scss">

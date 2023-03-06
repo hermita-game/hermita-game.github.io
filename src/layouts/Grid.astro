@@ -14,9 +14,7 @@ const { title } = Astro.props;
     <Hamburger client:load />
     <div class="line"></div>
   </div>
-  <div id="nav-title" class="title">
-    {title.split("").map((letter) => <span>{letter}</span>)}
-  </div>
+  <h1 class="title"> {title} </h1>
   <div class="sidebar">
     <Nav />
   </div>
@@ -87,11 +85,6 @@ const { title } = Astro.props;
     font-weight: 300;
     text-transform: uppercase;
     font-family: var(--normal);
-  }
-  .title :global(span) {
-    width: 0.8em;
-    display: inline-block;
-    text-align: center;
   }
   .sidebar {
     border-right: var(--line);

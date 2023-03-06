@@ -2,7 +2,6 @@
 import Grid from "./Grid.astro";
 import Smoke from "./Smoke.astro";
 import Gears from "../components/gears/gears.svelte";
-import { Spa } from "astro-spa";
 import Scroll from "./Scroll.astro";
 import { navigation } from "./Nav.astro";
 import './global.css';
@@ -38,10 +37,5 @@ const title = currentNavItem ? currentNavItem.warmTitle : "Error";
       </Scroll>
       <slot name="after" />
     </Grid>
-    <Spa
-      defaultAnimation={false}
-      progressBar={false}
-      containerSelector={"#page-content"}
-    />
   </body>
 </html>

@@ -132,7 +132,5 @@ export const scroll = {
     }
 
     requestAnimationFrame(raf);
-
-    window.addEventListener("mount", this.init);
   },
 };

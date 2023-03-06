@@ -3,10 +3,11 @@
 </div>
 
 <script>
-  const display = document.querySelector(".post-display") as HTMLElement;
-  const wrap = display.parentElement as HTMLElement;
+  let display = document.querySelector(".post-display") as HTMLElement;
+  let wrap = display.parentElement as HTMLElement;
 
   function showPost(post: Element) {
+    console.log(post);
     // grabbing the title
     (() => {
       const title = post.querySelector("h2") as HTMLElement;
@@ -67,12 +68,20 @@
     display.style.transform = "";
   }
 
-  const posts = document.getElementsByClassName("post");
-  for (let i = 0; i < posts.length; i++) {
-    posts[i].addEventListener("click", () => {
-      showPost(posts[i]);
+  const addEventListeners = () => {
+    const posts = document.querySelectorAll(".post");
+    posts.forEach((post) => {
+      post.addEventListener("click", () => showPost(post));
     });
-  }
+  };
+  addEventListeners();
+  window.addEventListener("mount", () => {
+    console
+    if (window.location.pathname !== "/blog/") return;
+    addEventListeners();
+    display = document.querySelector(".post-display") as HTMLElement;
+    wrap = display.parentElement as HTMLElement;
+  });
 </script>
 
 <style lang="scss">

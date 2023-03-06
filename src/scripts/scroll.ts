@@ -57,6 +57,7 @@ const calls: { [key: string]: Call } = {
     call: ({ scroll, limit }) => {
       const { display, imageDisplay, children, currentIdx } =
         calls.timeline.store;
+      if (!display || !imageDisplay || !children) return;
       const percentage = scroll / limit;
       const index = Math.max(
         Math.min(

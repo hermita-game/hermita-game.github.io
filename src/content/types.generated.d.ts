@@ -57,6 +57,13 @@ declare module 'astro:content' {
   collection: "posts",
   data: InferEntrySchema<"posts">
 },
+"leveldesign.md": {
+  id: "leveldesign.md",
+  slug: "leveldesign",
+  body: string,
+  collection: "posts",
+  data: InferEntrySchema<"posts">
+},
 "multijoueur.md": {
   id: "multijoueur.md",
   slug: "multijoueur",

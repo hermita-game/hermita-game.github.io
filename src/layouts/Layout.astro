@@ -8,9 +8,10 @@ import './global.css';
 
 export interface Props {
   horizontalScroll?: boolean;
+  calls?: string;
 }
 
-const { horizontalScroll } = Astro.props;
+const { horizontalScroll, calls } = Astro.props;
 const currentNavItem = navigation.find((item) => item.url === Astro.url.pathname);
 const title = currentNavItem ? currentNavItem.warmTitle : "Error";
 ---
@@ -32,7 +33,7 @@ const title = currentNavItem ? currentNavItem.warmTitle : "Error";
     <Gears />
     <Grid title={title}>
       <slot name="before" />
-      <Scroll isHorizontal={horizontalScroll}>
+      <Scroll isHorizontal={horizontalScroll} calls={calls}>
         <slot />
       </Scroll>
       <slot name="after" />

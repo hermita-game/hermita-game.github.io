@@ -85,15 +85,16 @@ const calls: { [key: string]: Call } = {
   },
 };
 
+let lenis: Lenis;
 export const scroll = {
-  init() {
+  init(callStr: string) {
     const container = document.getElementById(
       "scroll-container"
     ) as HTMLElement;
     const direction = container.classList.contains("horizontal")
       ? "horizontal"
       : "vertical";
-    const lenis = new Lenis({
+    lenis = new Lenis({
       wrapper: container,
       content: container.firstElementChild as HTMLElement,
       smooth: true,
@@ -118,13 +119,16 @@ export const scroll = {
       }
     }
 
-    for (const key in calls) {
-      const call = calls[key];
-      call.setup();
-      lenis.on("scroll", (e: ScrollArgs) => {
-        call.call(e);
+    if (callStr)
+      callStr.split(", ").forEach((key) => {
+        const call = calls[key];
+        if (!call) return;
+        call.setup();
+        lenis.on("scroll", (e: ScrollArgs) => {
+          call.call(e);
+        });
       });
-    }
+
 
     function raf(time: number) {
       lenis.raf(time);

@@ -20,7 +20,7 @@ const lastPost = posts[posts.length - 1];
 lastPost.data.daygap = Math.round((Date.now() - lastPost.data.date.getTime()) / (1000 * 60 * 60 * 24));
 ---
 
-<Layout horizontalScroll>
+<Layout horizontalScroll calls="timeline">
   <main>
     <BlogList posts={posts} />
   </main>

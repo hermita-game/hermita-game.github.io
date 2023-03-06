@@ -1,20 +1,24 @@
 ---
 export interface Props {
   isHorizontal?: boolean;
+  calls?: string;
 }
 
-const { isHorizontal } = Astro.props;
+const { isHorizontal, calls } = Astro.props;
 ---
 
-<div id="scroll-container" class:list={{horizontal: isHorizontal, vertical: !isHorizontal}}>
+<div id="scroll-container" class:list={{horizontal: isHorizontal, vertical: !isHorizontal}} data-scroll-calls={calls}>
     <div id="scroll-content">
         <slot />
     </div>
 </div>
 
+
 <script>
     import { scroll } from '../scripts/scroll';
-    scroll.init();
+    const container = document.querySelector('#scroll-container') as HTMLElement;
+    const calls = container.getAttribute('data-scroll-calls') as string;
+    scroll.init(calls);
 </script>
 
 <style>

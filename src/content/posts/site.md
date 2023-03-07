@@ -2,6 +2,7 @@
 title: Début du site
 author: Antoine
 date: 2022-12-20
+image: /images/former-website.png
 ---
 
 # Le _vrai_ début du site

@@ -2,6 +2,7 @@
 title: Epistars naît
 author: Antoine
 date: 2022-09-10
+image: /images/accrobrance.jpg
 ---
 
 # Naissance du groupe

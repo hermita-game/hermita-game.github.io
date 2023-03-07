@@ -52,6 +52,11 @@ const calls: { [key: string]: Call } = {
         "data-scroll-ctx-text"
       ) as string;
 
+      const image = children[0].getAttribute("data-scroll-ctx-image") as string;
+      imageDisplay.style.backgroundImage = image
+      ? `url(${image})`
+      : `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3C/svg%3E")`;
+
       calls.timeline.store = { display, imageDisplay, children, currentIdx: 0 };
     },
     call: ({ scroll, limit }) => {
@@ -81,6 +86,35 @@ const calls: { [key: string]: Call } = {
       imageDisplay.style.backgroundImage = image
         ? `url(${image})`
         : `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3C/svg%3E")`;
+    },
+  },
+  parallax: {
+    store: {},
+    setup: () => {
+      const elements = document.querySelectorAll("[data-scroll-parallax]");
+      const toMove: { el: HTMLElement; speed: number, distance: number }[] = [];
+      for (let i = 0; i < elements.length; i++) {
+        const el = elements[i] as HTMLElement;
+        const attr = parseFloat(el.getAttribute("data-scroll-parallax") as string);
+        const rect = el.getBoundingClientRect();
+        if (attr) {
+          toMove.push({
+            el,
+            speed: attr,
+            distance: rect.y
+          });
+        }
+      }
+      const height = window.innerHeight/2;
+      calls.parallax.store = { toMove, height };
+    },
+    call: ({ scroll }) => {
+      const { toMove, height } = calls.parallax.store;
+      if (!toMove) return;
+      for (let i = 0; i < toMove.length; i++) {
+        const { el, speed, distance } = toMove[i];
+        el.style.transform = `translateY(${-(scroll - distance + height) * speed }px)`;
+      }
     },
   },
 };
@@ -127,6 +161,7 @@ export const scroll = {
         lenis.on("scroll", (e: ScrollArgs) => {
           call.call(e);
         });
+        call.call({ scroll: 0, limit: lenis.limit, velocity: 0, direction: 1 });
       });
 
 

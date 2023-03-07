@@ -2,10 +2,10 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout>
+<Layout calls="parallax">
   <main>
     <h1>Welcome to Main Page</h1>
-    <a href="/blog/">Test</a>
+    <img src="/design/island.png" alt="island" class="island" data-scroll-parallax="-0.5" />
     <h1>Hi</h1>
     <h1>Hi</h1>
     <h1>Hi</h1>
@@ -116,4 +116,12 @@ import Layout from "../layouts/Layout.astro";
   </main>
 </Layout>
 
-<style></style>
+<style>
+  .island {
+    max-width: 15rem;
+    max-height: 15rem;
+    position: absolute;
+    top: 50%;
+    z-index: -1;
+  }
+</style>

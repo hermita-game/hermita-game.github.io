@@ -2,6 +2,7 @@
 title: Multijoueur
 author: Antoine
 date: 2023-02-02
+image: /images/multiplayer.png
 ---
 
 # Le multijoueur fonctionne

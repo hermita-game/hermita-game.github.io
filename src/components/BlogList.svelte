@@ -17,6 +17,7 @@
         >
             <div style="display:none;">
                 {@html marked.parse(post.body)}
+                <p style="text-align:right;"><i>{post.data.author}</i></p>
             </div>
             <div class="post">
                 <h2>{post.data.title}</h2>

@@ -15,4 +15,4 @@ Je ne les ai pas écouté par rapport à l'esprit du site. Ils voulaient retrouv
 
 ## Le choix du CMS/framework
 
-Le choix du framework svelte a été fait dès le début, principalement parce que c'est mon préféré. De plus, il est très simple à utiliser et à comprendre, ce qui est un plus pour un projet de groupe. Pour la partie serveur, j'aurais bien pris SvelteKit mais je voulais rendre l'écriture des posts le plus simple possible pour motiver tou
+Le choix du framework svelte a été fait dès le début, principalement parce que c'est mon préféré. De plus, il est très simple à utiliser et à comprendre, ce qui est un plus pour un projet de groupe. Pour la partie serveur, j'aurais bien pris SvelteKit mais je voulais rendre l'écriture des posts le plus simple possible pour motiver toute l'équipe à en écrire. Astro est alors apparu comme une solution attrayante. C'est un générateur de site statique qui permet d'utiliser différents frameworks tels que Svelte pour programmer. Mais une fonctionnalité très séduisante consiste à utiliser un dossier de fichiers au format markdown comme une collection, ce qui est très adéquat pour implémenter un système.

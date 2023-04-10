@@ -11,6 +11,23 @@ interface Transformer {
   attribute: string;
   transform: (args: ScrollArgs, attr: number) => string;
 }
+
+const AddEffect = (str: string) => {
+  if (!str) return;
+  const splitted = str.split(" -> ");
+  var el = document.querySelector(splitted[0]);
+  if (!el) return;
+  el.classList.add(splitted[1]);
+};
+
+const RemoveEffect = (str: string) => {
+  if (!str) return;
+  const splitted = str.split(" -> ");
+  var el = document.querySelector(splitted[0]);
+  if (!el) return;
+  el.classList.remove(splitted[1]);
+};
+
 const transforms: { [key: string]: Transformer } = {
   skew: {
     attribute: "skew",
@@ -114,6 +131,41 @@ const calls: { [key: string]: Call } = {
       for (let i = 0; i < toMove.length; i++) {
         const { el, speed, distance } = toMove[i];
         el.style.transform = `translateY(${-(scroll - distance + height) * speed }px)`;
+      }
+    },
+  },
+  sections: {
+    store: {
+      sections: [],
+      current: -1,
+      previous: 0,
+      offset: 0,
+    },
+    setup: () => {
+      const elements = document.querySelectorAll("[data-scroll-section]");
+      const sections: { start: number; effects: string[] }[] = [];
+      for (let i = 0; i < elements.length; i++) {
+        const el = elements[i] as HTMLElement;
+        const effects = (el.getAttribute("data-scroll-section") as string).split(";");
+        const start = el.offsetTop;
+        sections.push({ start, effects });
+      }
+      calls.sections.store.sections = sections;
+      calls.sections.store.offset = window.innerHeight / 2;
+    },
+    call: ({ scroll }) => {
+      const store = calls.sections.store;
+      if (!store.sections) return;
+      for (let i = 0; i < store.sections.length; i++) {
+        const { start } = store.sections[i];
+        if (scroll >= start - store.offset) {
+          store.current = i;
+        }
+      }
+      if (store.current !== store.previous) {
+        store.sections[store.previous].effects.forEach(RemoveEffect);
+        store.sections[store.current].effects.forEach(AddEffect);
+        store.previous = store.current;
       }
     },
   },

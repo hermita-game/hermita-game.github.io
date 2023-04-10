@@ -1,32 +1,86 @@
 ---
+import Farming from "../components/sections/farming.astro";
 import Layout from "../layouts/Layout.astro";
-const randomBoxes: { height: number; width: number; color: string, left: number; speed: number }[] = new Array(100).fill(0).map((_, i) => ({
-  height: Math.random() * 10 + 100,
-  width: Math.random() * 10 + 100,
-  left: Math.random() * 300,
-  speed: Math.random() - 0.5,
-  color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+// Get images from public folder in images/tiles
+const tiles = await Astro.glob("../../public/images/tiles/*.png");
+// repeat images
+tiles.push(...tiles);
+tiles.push(...tiles);
+
+// Get random boxes
+const randomBoxes = tiles.map((img, i) => ({
+  speed: (Math.random() > 0.5 ? 1 + Math.random() : -1 - Math.random())/10,
+  url: img.default.replace("/public", ""),
+  left: 5 + Math.random() * 75,
 }));
+// shuffle array
+randomBoxes.sort(() => Math.random() - 0.5);
+
 ---
 
-<Layout calls="parallax">
-  <main>
-    <h1>Welcome to Main Page</h1>
-    <img src="/design/island.png" alt="island" class="island" data-scroll-parallax="-0.5" />
-    {randomBoxes.map((_, i) => (
-      <div class="box" style={`height:${_.height}px;width:${_.width}px;background-color:${_.color};margin-left:${_.left}px`} data-scroll-parallax={_.speed}>
-        <h2>Box {i}</h2>
+<Layout calls="parallax, sections">
+  <div class="bg-tiles">
+    {randomBoxes.map((img, i) => (
+      <div class="tile" data-scroll-parallax={img.speed} style={{ marginLeft: `calc(${img.left}vw)` }}>
+        <img src={img.url} alt="tile" />
       </div>
     ))}
+  </div>
+  <main>
+    <div class="wrapper" data-scroll-section="">
+      <div class="center">
+        <h1 data-scroll-parallax={0.5}>Hermita</h1>
+        <h2>By Epistars</h2>
+      </div>
+    </div>
+    <div class="wrapper" id="farming" data-scroll-section=".bg-tiles -> transparent; #farming -> highlight">
+      <Farming />
+    </div>
   </main>
 </Layout>
 
 <style>
-  .island {
-    max-width: 15rem;
-    max-height: 15rem;
+  .bg-tiles {
+    width: 100%;
     position: absolute;
-    top: 50%;
+    overflow: hidden;
+    transition: opacity 500ms ease-in-out;
     z-index: -1;
+  }
+  :global(.bg-tiles.transparent) {
+    opacity: 0.3;
+  }
+
+  main {
+    width: 100%;
+    min-height: 500rem;
+  }
+
+  .wrapper {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  h1 {
+    font-size: 4rem;
+    font-weight: 900;
+    margin-bottom: 0rem;
+  }
+
+  .tile {
+    width: 100px;
+    height: 100px;
+    margin: -10px;
+  }
+
+  .tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    image-rendering: pixelated;
   }
 </style>

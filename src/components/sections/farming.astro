@@ -1,0 +1,32 @@
+<h3>Farming</h3>
+<img data-scroll-parallax="-0.2" src="/design/island.png" alt="">
+
+<style>
+    h3 {
+        font-size: 2rem;
+        position: absolute;
+        top: 20rem;
+        left: 10rem;
+        transition: 500ms ease-in-out;
+        transition-property: left, font-size, top;
+    }
+    :global(#farming.highlight > h3) {
+        font-size: 5rem;
+        left: 4rem;
+        top: 4rem;
+    }
+
+    img {
+        position: absolute;
+        width: 0;
+        right: 40%;
+        top: 10rem;
+        transition: 500ms ease-in-out;
+        transition-property: right, width;
+    }
+    :global(#farming.highlight > img) {
+        width: 50vw;
+        right: 2rem;
+        transition-delay: 500ms;
+    }
+</style>

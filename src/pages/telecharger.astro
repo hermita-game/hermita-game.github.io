@@ -1,7 +1,85 @@
 ---
+import DownloadButton from "../components/DownloadButton.astro";
 import Layout from "../layouts/Layout.astro"
 ---
 
 <Layout>
-  <h1>Télécharger</h1>
+	<main>
+		<h1>Téléchargements</h1>
+		<section class="card">
+			<h2>Paperasse</h2>
+			<div class="downloads">
+				<DownloadButton href="http://www.google.com">
+				  	Cahier des charges
+			  	</DownloadButton>
+				<DownloadButton href="http://www.google.com">
+					Rapport de soutenance 1
+				</DownloadButton>
+				<DownloadButton href="http://www.google.com">
+					Rapport de soutenance 2
+				</DownloadButton>
+			</div>
+			<img src="/design/scrolls.png" alt="">
+		</section>
+		<section class="card">
+			<h2>Le jeu</h2>
+			<div class="downloads">
+				<DownloadButton href="http://www.google.com">
+				  	Windows
+			  	</DownloadButton>
+				<DownloadButton href="http://www.google.com">
+					Linux
+				</DownloadButton>
+				<DownloadButton href="http://www.google.com">
+					MacOS
+				</DownloadButton>
+			</div>
+			<img src="/design/operating systems.png" alt="">
+		</section>
+	</main>
 </Layout>
+
+<style>
+	h1 {
+		font-size: 3rem;
+	}
+	h2 {
+		font-size: 2.5rem;
+	}
+	h2::before {
+		content: ">";
+		font-family: var(--normal);
+		display: inline-block;
+		transform: translate3d(-0.5rem, 0.2rem, 0);
+	}
+	main {
+		padding: 4rem;
+	}
+	@media (max-width: 700px) {
+		main {
+			padding: 1rem;
+		}
+	}
+
+	section {
+		position: relative;
+		margin: 4rem 0;
+	}
+
+	.downloads {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+		padding: 1rem;
+		margin: 0.5rem 1.75rem;
+		border-left: solid 1px white;
+	}
+
+	img {
+		position: absolute;
+		top: 4rem;
+		left: 30rem;
+		height: 80%;
+		width: auto;
+	}
+</style>

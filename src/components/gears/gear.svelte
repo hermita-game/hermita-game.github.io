@@ -19,7 +19,8 @@
 		margin-bottom: -4px;
 	}
 	div :global(polygon) {
-		fill: #333;
-		stroke: white !important;
+		fill: #dee0de !important;
+		stroke: #333 !important;
+		stroke-width: 4px;
 	}
 </style>

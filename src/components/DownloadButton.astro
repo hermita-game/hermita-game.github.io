@@ -1,0 +1,63 @@
+---
+const { href } = Astro.props;
+---
+
+<a class="download" href={href} target="_blank" title="Download">
+	<div class="icon">
+		<img src="/design/download.svg">
+	</div>
+	<div class="text">
+		<slot />
+	</div>
+</a>
+
+<style>
+	@keyframes jump {
+		50% {
+			transform: translateY(0.1rem);
+		}
+	}
+	@keyframes darken {
+		50% {
+			filter: brightness(0.95);
+		}
+	}
+	a {
+		position: relative;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		width: fit-content;
+		text-decoration: none;
+		background-color: #000000;
+		color: white;
+		font-size: 1.6rem; 
+		transition: box-shadow 0.4s ease-in-out;
+	}
+	a:hover {
+		box-shadow: 0 0 3px #fff8;
+	}
+
+	.icon {
+		background-color: var(--color-primary);
+		height: 4rem;
+		width: 4rem;
+	}
+	a:hover .icon {
+		animation: darken 1s ease-in-out infinite;
+	}
+
+	.text {
+		padding: 0.5rem;
+	}
+
+	img {
+		height: 2rem;
+		width: 2rem;
+		margin: 1rem;
+	}
+	a:hover img {
+		animation: jump 1s ease-in-out infinite;
+	}
+	
+</style>

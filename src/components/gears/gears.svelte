@@ -24,6 +24,6 @@
 		bottom: 0;
 		right: 0;
 		z-index: 0;
-		transform: scale(0.3);
+		transform: scale(0.2);
 	}
 </style>

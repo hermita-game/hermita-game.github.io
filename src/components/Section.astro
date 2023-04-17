@@ -1,0 +1,55 @@
+---
+const { title, imgURL } = Astro.props;
+---
+
+<h3>{title}</h3>
+<img data-scroll-parallax="-0.2" src={imgURL} alt="">
+<p>
+    <slot />
+</p>
+
+<style>
+    h3 {
+        font-size: 2rem;
+        position: absolute;
+        top: 20rem;
+        left: 10rem;
+        transition: 500ms ease-in-out;
+        transition-property: left, font-size, top;
+    }
+    :global(.wrapper.highlight > h3) {
+        font-size: 5rem;
+        left: 6rem;
+        top: 4rem;
+    }
+
+    p {
+        font-size: 2rem;
+        padding: 2rem;
+        width: min(50vw, 40rem);
+        position: absolute;
+        top: 10rem;
+        left: 4rem;
+        background-color: #15141ad2;
+        opacity: 0;
+        transition: opacity 500ms ease-in-out;
+    }
+    :global(.wrapper.highlight > p) {
+        opacity: 1;
+        transition-delay: 500ms;
+    }
+
+    img {
+        position: absolute;
+        width: 0;
+        right: 40%;
+        top: 2rem;
+        transition: 500ms ease-in-out;
+        transition-property: right, width;
+    }
+    :global(.wrapper.highlight > img) {
+        width: 40vw;
+        right: 10rem;
+        transition-delay: 500ms;
+    }
+</style>

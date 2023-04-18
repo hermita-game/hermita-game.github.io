@@ -29,8 +29,8 @@ const title = currentNavItem ? currentNavItem.warmTitle : "Error";
     <title>{title}</title>
   </head>
   <body>
-    <!-- <Smoke /> -->
-	<Gears />
+    <Smoke />
+	  <Gears />
     <Grid title={title}>
       <slot name="before" />
       <Scroll isHorizontal={horizontalScroll} calls={calls}>

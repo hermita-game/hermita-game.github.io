@@ -3,10 +3,14 @@ const { title, imgURL } = Astro.props;
 ---
 
 <h3>{title}</h3>
-<img data-scroll-parallax="-0.2" src={imgURL} alt="">
-<p>
-    <slot />
-</p>
+<div class="layout">
+	<p>
+		<slot />
+	</p>
+	<div class="img" data-scroll-parallax="0.2">
+		<img src={imgURL} alt="">
+	</div>
+</div>
 
 <style>
     h3 {
@@ -14,42 +18,54 @@ const { title, imgURL } = Astro.props;
         position: absolute;
         top: 20rem;
         left: 10rem;
-        transition: 500ms ease-in-out;
-        transition-property: left, font-size, top;
+        transition: transform 500ms ease-in-out;
     }
     :global(.wrapper.highlight > h3) {
-        font-size: 5rem;
-        left: 6rem;
-        top: 4rem;
+		transform: translate3d(-1rem, -16rem, 0) scale(2);
     }
 
+	.layout {
+		display: flex;
+		justify-content: space-evenly;
+		width: 100%;
+	}
+	@media (max-width: 1000px) {
+		h3 {
+			top: 20rem;
+			left: 6rem;
+		}
+		.layout {
+			flex-direction: column;
+			align-items: center;
+		}
+		.img {
+			width: 80%;
+			margin-top: 5rem;
+		}
+		img {
+			width: 100% !important;
+		}
+	}
+
     p {
-        font-size: 2rem;
+        font-size: 1.6rem;
         padding: 2rem;
-        width: min(50vw, 40rem);
-        position: absolute;
-        top: 10rem;
-        left: 4rem;
-        background-color: #15141ad2;
+        width: min(100%, 40rem);
         opacity: 0;
         transition: opacity 500ms ease-in-out;
     }
-    :global(.wrapper.highlight > p) {
+    :global(.wrapper.highlight p) {
         opacity: 1;
         transition-delay: 500ms;
     }
-
     img {
-        position: absolute;
-        width: 0;
-        right: 40%;
-        top: 2rem;
-        transition: 500ms ease-in-out;
-        transition-property: right, width;
+		width: 35vw;
+		height: auto;
+		transform: scale(0);
+        transition: transform 500ms ease-in-out;
     }
-    :global(.wrapper.highlight > img) {
-        width: 40vw;
-        right: 10rem;
+    :global(.wrapper.highlight img) {
+		transform: scale(1);
         transition-delay: 500ms;
     }
 </style>

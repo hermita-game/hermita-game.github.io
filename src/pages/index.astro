@@ -10,14 +10,14 @@ const randomBoxes = tiles.map((img, i) => ({
   speed: (Math.random() > 0.5 ? 1 + Math.random() : -1 - Math.random())/10,
   url: img.default.replace("/public", ""),
   left: 5 + Math.random() * 75,
-  animationDelay: Math.random() * 2
+  animationDelay: Math.random()
 }));
 // shuffle array
 randomBoxes.sort(() => Math.random() - 0.5);
 ---
 
 <Layout calls="parallax, sections">
-  <div class="bg-tiles">
+  <div class="bg-tiles not-transparent">
     {randomBoxes.map((img, i) => (
       <div class="tile" data-scroll-parallax={img.speed} style={{ marginLeft: `calc(${img.left}vw)` }}>
         <img src={img.url} alt="tile" style={{ animationDelay: `${img.animationDelay}s` }} />
@@ -25,14 +25,14 @@ randomBoxes.sort(() => Math.random() - 0.5);
     ))}
   </div>
   <main>
-    <div class="wrapper" data-scroll-section="">
+    <div class="wrapper" data-scroll-section=".bg-tiles -> not-transparent">
       <div class="center">
         <h1 data-scroll-parallax={0.5}>Hermita</h1>
         <h2>By Epistars</h2>
       </div>
     </div>
     <div class="wrapper" id="fighting" data-scroll-section="#fighting -> highlight; .bg-tiles -> jumping">
-      <Section title="Combat">
+      <Section title="Combat" imgURL="/design/spell.gif">
         Le combat vous permettra de vous défouler et de vous amuser.
         Vous devrez combattre des monstres pour obtenir des ressources.
         Ces combats se font en coopération avec vos amis.
@@ -47,7 +47,7 @@ randomBoxes.sort(() => Math.random() - 0.5);
         Vous pourrez également trouver des coffres cachés qui vous permettront d'obtenir des récompenses.
       </Section>
     </div>
-    <div class="wrapper" id="crafting" data-scroll-section="#crafting -> highlight; .bg-tiles -> transparent">
+    <div class="wrapper" id="crafting" data-scroll-section="#crafting -> highlight; .bg-tiles -> scaling">
       <Section title="Crafting" imgURL="/design/island.png">
         Si vous voulez améliorer votre équipement et vos compétences, vous devrez passer par le craft.
         Votre île personnelle sera votre lieu intime pour créer des objets.
@@ -75,21 +75,30 @@ randomBoxes.sort(() => Math.random() - 0.5);
       transform: translate3d(5px, -5px, 0);
     }
   }
+  @keyframes tile-scale {
+	50% {
+		transform: scale(0.7);
+	}
+  }
   .bg-tiles {
     width: 100%;
 	  height: 100%;
     position: absolute;
     transition: opacity 500ms ease-in-out;
     z-index: -1;
+	opacity: 0.3;
   }
-  :global(.bg-tiles.transparent) {
-    opacity: 0.3;
+  :global(.bg-tiles.not-transparent) {
+    opacity: 1;
   }
   :global(.bg-tiles.jumping .tile img) {
     animation: tile-jump 300ms ease-in infinite alternate;
   }
   :global(.bg-tiles.flying .tile img) {
     animation: tile-fly 3s ease-in-out infinite;
+  }
+  :global(.bg-tiles.scaling .tile img) {
+	animation: tile-scale 2s ease-in-out infinite;
   }
 
   main {
@@ -98,7 +107,8 @@ randomBoxes.sort(() => Math.random() - 0.5);
 
   .wrapper {
     position: relative;
-    height: 100vh;
+    min-height: 100vh;
+	padding: 10rem 0;
     width: 100%;
     display: flex;
     align-items: center;
@@ -112,6 +122,14 @@ randomBoxes.sort(() => Math.random() - 0.5);
   }
   h2 {
     font-size: 3rem;
+  }
+  @media (max-width: 410px) {
+    h1 {
+      font-size: 3rem;
+    }
+    h2 {
+      font-size: 2rem;
+    }
   }
 
   .tile {

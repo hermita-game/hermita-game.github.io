@@ -43,6 +43,13 @@ declare module 'astro:content' {
 
 	const entryMap: {
 		"posts": {
+"AI.md": {
+  id: "AI.md",
+  slug: "AI",
+  body: string,
+  collection: "posts",
+  data: InferEntrySchema<"posts">
+},
 "blog.md": {
   id: "blog.md",
   slug: "blog",
@@ -50,9 +57,23 @@ declare module 'astro:content' {
   collection: "posts",
   data: InferEntrySchema<"posts">
 },
+"collisions.md": {
+  id: "collisions.md",
+  slug: "collisions",
+  body: string,
+  collection: "posts",
+  data: InferEntrySchema<"posts">
+},
 "inventaire.md": {
   id: "inventaire.md",
   slug: "inventaire",
+  body: string,
+  collection: "posts",
+  data: InferEntrySchema<"posts">
+},
+"landing_page.md": {
+  id: "landing_page.md",
+  slug: "landing_page",
   body: string,
   collection: "posts",
   data: InferEntrySchema<"posts">
@@ -78,9 +99,23 @@ declare module 'astro:content' {
   collection: "posts",
   data: InferEntrySchema<"posts">
 },
+"robust-multi.md": {
+  id: "robust-multi.md",
+  slug: "robust-multi",
+  body: string,
+  collection: "posts",
+  data: InferEntrySchema<"posts">
+},
 "site.md": {
   id: "site.md",
   slug: "site",
+  body: string,
+  collection: "posts",
+  data: InferEntrySchema<"posts">
+},
+"soutenance1.md": {
+  id: "soutenance1.md",
+  slug: "soutenance1",
   body: string,
   collection: "posts",
   data: InferEntrySchema<"posts">

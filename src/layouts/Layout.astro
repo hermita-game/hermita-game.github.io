@@ -3,16 +3,18 @@ import Grid from "./Grid.astro";
 import Smoke from "./Smoke.astro";
 import Gears from "../components/gears/gears.svelte";
 import Scroll from "./Scroll.astro";
-import { navigation } from "./Nav.astro";
+import { navigation, setLang } from "./Nav.astro";
 import "./global.css";
 
 export interface Props {
   horizontalScroll?: boolean;
   calls?: string;
+  lang?: string;
 }
 
-const { horizontalScroll, calls } = Astro.props;
-const currentNavItem = navigation.find(
+const { horizontalScroll, calls, lang="fr" } = Astro.props;
+setLang(lang);
+const currentNavItem = navigation().find(
   (item) => item.url === Astro.url.pathname
 );
 const title = currentNavItem ? currentNavItem.warmTitle : "Error";
@@ -40,9 +42,9 @@ const title = currentNavItem ? currentNavItem.warmTitle : "Error";
     <title>{title}</title>
   </head>
   <body>
-    <Smoke />
+    <!-- <Smoke /> -->
     <Gears />
-    <Grid title={title}>
+    <Grid title={title} lang={lang}>
       <slot name="before" />
       <Scroll isHorizontal={horizontalScroll} calls={calls}>
         <slot />

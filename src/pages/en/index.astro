@@ -1,8 +1,8 @@
 ---
-import Section from "../components/Section.astro";
-import Layout from "../layouts/Layout.astro";
+import Section from "../../components/Section.astro";
+import Layout from "../../layouts/Layout.astro";
 // Get images from public folder in images/tiles
-const tiles = await Astro.glob("../../public/images/tiles/*.png");
+const tiles = await Astro.glob("../../../public/images/tiles/*.png");
 // repeat images
 
 // Get random boxes
@@ -16,7 +16,7 @@ const randomBoxes = tiles.map((img, i) => ({
 randomBoxes.sort(() => Math.random() - 0.5);
 ---
 
-<Layout calls="parallax, sections">
+<Layout calls="parallax, sections" lang="en">
   <div class="bg-tiles not-transparent">
     {randomBoxes.map((img, i) => (
       <div class="tile" data-scroll-parallax={img.speed} style={{ marginLeft: `calc(${img.left}vw)` }}>
@@ -32,28 +32,28 @@ randomBoxes.sort(() => Math.random() - 0.5);
       </div>
     </div>
     <div class="wrapper" id="fighting" data-scroll-section="#fighting -> highlight; .bg-tiles -> jumping">
-      <Section title="Combat" imgURL="/design/spell.gif">
-        Le combat vous permettra de vous défouler et de vous amuser.
-        Vous devrez combattre des monstres pour obtenir des ressources.
-        Ces combats se font en coopération avec vos amis.
-        Vous pourrez ainsi vous aider mutuellement pour vaincre les monstres les plus puissants.
+      <Section title="Fighting" imgURL="/design/spell.gif">
+        The fight will let you have fun.
+        You will have to fight monsters to get resources.
+        Those fights are done in cooperation with your friends.
+        Thus, you will be able to help each other to defeat the most powerful monsters.
       </Section>
     </div>
     <div class="wrapper" id="adventure" data-scroll-section="#adventure -> highlight; .bg-tiles -> flying">
       <Section title="Aventure">
-        L'aventure est un point clé du jeu.
-        Vous devrez explorer les différentes îles pour trouver des ressources et des monstres.
-        Voyagez dans un bel univers pixel art et découvrez les secrets de ce monde.
-        Il n'y a plus qu'à vous souhaiter bonne chance !
+        The adventure is a key point of the game.
+        You will have to explore the different islands to find resources and monsters.
+        Travel in a beautiful pixel art universe and discover the secrets of this world.
+        There is only one thing left to do, good luck!
       </Section>
     </div>
     <div class="wrapper" id="crafting" data-scroll-section="#crafting -> highlight; .bg-tiles -> scaling">
       <Section title="Crafting" imgURL="/design/island.png">
-        Si vous voulez améliorer votre équipement et vos compétences, vous devrez passer par le craft.
-        Votre île personnelle sera votre lieu intime pour créer des objets.
-        Vous pourrez y utiliser vos ressources dans les différents bâtiments qui vous seront débloqués.
-        Cet espace est paisible et vous permettra de vous concentrer sur votre travail sans être dérangé que ce soit par des monstres ou des joueurs.
-      </Section>
+        If you want to improve your equipment and skills, you will have to go through crafting.
+        Your personal island will be your intimate place to create items.
+        You will be able to use your resources in the different buildings that will be unlocked.
+        This space is peaceful and will allow you to focus on your work without being disturbed by monsters or players.
+    </Section>
     </div>
   </main>
 </Layout>

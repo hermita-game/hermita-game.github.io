@@ -4,24 +4,7 @@ interface NavigationItem {
   url: string;
   warmTitle: string;
 }
-
-export interface Props {
-  lang: string;
-}
-
-export let lang = "fr";
-export let setLang = (newLang: string) => {
-  lang = newLang;
-}
-
-export const enNavigation: NavigationItem[] = [
-  {
-    title: "Home",
-    url: "/en/",
-    warmTitle: "Who are we?"
-  }
-]
-export const frNavigation: NavigationItem[] = [
+export const navigation: NavigationItem[] = [
   {
     title: "Accueil",
     url: "/",
@@ -38,25 +21,16 @@ export const frNavigation: NavigationItem[] = [
     warmTitle: "Telecharger nos fichiers",
   },
   {
-    title: "Wiki",
-    url: "/wiki/",
-    warmTitle: "Encyclopedie Hermita",
-  },
-  {
     title: "Credits",
     url: "/credits/",
     warmTitle: "A l'aide de ...",
-  }
-]
-
-export const navigation = () => {
-  return lang === "fr" ? frNavigation : enNavigation;
-}
+  },
+];
 ---
 
 <nav>
   {
-    navigation().map((item) => (
+    navigation.map((item) => (
       <a
         href={item.url}
         class:list={{ active: item.url === Astro.url.pathname }}

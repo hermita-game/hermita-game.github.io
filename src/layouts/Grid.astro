@@ -4,11 +4,9 @@ import Nav from "./Nav.astro";
 
 export interface Props {
   title: string;
-  lang: string;
 }
 
-const { title, lang } = Astro.props;
-console.log(title, lang);
+const { title } = Astro.props;
 ---
 
 <div class="grid">
@@ -18,7 +16,7 @@ console.log(title, lang);
   </div>
   <h1 class="title"> {title} </h1>
   <div class="sidebar">
-    <Nav lang={lang} />
+    <Nav />
   </div>
   <div id="page-container">
     <div id="page-content">

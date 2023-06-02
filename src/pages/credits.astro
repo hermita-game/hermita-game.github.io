@@ -1,7 +1,78 @@
 ---
+import MemberCard from "../components/MemberCard.svelte";
 import Layout from "../layouts/Layout.astro"
+const tiles = await Astro.glob("../../public/images/tiles/*.png");
+const GetRandomTiles = (nb: number): string[] => {
+	const randomTiles = [];
+	for (let i = 0; i < nb; i++) {
+		randomTiles.push(tiles[Math.floor(Math.random() * tiles.length)].default.replace("/public", ""),);
+	}
+	return randomTiles;
+};
 ---
 
 <Layout>
-  <h1>Crédits</h1>
+  <h1>Epistars</h1>
+  <div class="cards">
+	<MemberCard name="Baptiste" description={[
+		"Le jeu, c'est lui",
+		"A fait tout le Game Design",
+		"N'aime pas les merge-conflicts",
+		"Plage horaire de travail : 23h-6h",
+		"Il ne faut pas lui parler pendant qu'il code"
+	]} tiles={GetRandomTiles(4)}/>
+	<MemberCard name="Dylan" description={[
+		"Les graphismes, c'est lui",
+		"A dessiné toutes les entités",
+		"Impliqué dans la communication (Instagram, Pins, etc.)",
+		"Attention à ne pas le vexer"
+	]} tiles={GetRandomTiles(3)}/>
+	<MemberCard name="Antoine" description={[
+		"Le pilier de la programmation",
+		"Un papi",
+		"Plage horaire de travail : 7h-16h",
+		"On sait pas trop ce qu'il fait, mais ça marche"
+	]} tiles={GetRandomTiles(5)}/>
+	<MemberCard name="Anouar" description={[
+		"Chef de projet",
+		"A fait le dash",
+		"Est en train d'avancer sur le menu"
+	]} tiles={GetRandomTiles(2)}/>
+  </div>
+  <h1>Merci à eux</h1>
+  <div class="friends">
+	<p>Grâce à eux, nous avons pu réaliser ce projet :</p>
+	<ul>
+		<li>Henri, qui a réalisé toutes les musiques et quelques sprites</li>
+		<li>Samira, qui a réalisé quelques sprites</li>
+		<li>Thomas, qui a réalisé quelques sprites</li>
+	</ul>
+  </div>
 </Layout>
+
+<style>
+	h1 {
+		font-size: 4rem;
+		padding: 4rem;
+	}
+	.cards {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		grid-gap: 2rem;
+		margin: 5rem 5vw;
+	}
+	.friends {
+		padding: 4rem;
+		padding-bottom: 20rem;
+		font-size: 2rem;
+	}
+	.friends ul {
+		list-style: none;
+	}
+	.friends p {
+		margin-bottom: 3rem;
+	}
+	.friends ul li {
+		margin-bottom: 1rem;
+	}
+</style>

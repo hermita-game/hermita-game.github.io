@@ -3,20 +3,16 @@ import Grid from "./Grid.astro";
 import Smoke from "./Smoke.astro";
 import Gears from "../components/gears/gears.svelte";
 import Scroll from "./Scroll.astro";
-import { navigation, setLang } from "./Nav.astro";
-import "./global.css";
+import { navigation } from "./Nav.astro";
+import './global.css';
 
 export interface Props {
   horizontalScroll?: boolean;
   calls?: string;
-  lang?: string;
 }
 
-const { horizontalScroll, calls, lang="fr" } = Astro.props;
-setLang(lang);
-const currentNavItem = navigation().find(
-  (item) => item.url === Astro.url.pathname
-);
+const { horizontalScroll, calls } = Astro.props;
+const currentNavItem = navigation.find((item) => item.url === Astro.url.pathname);
 const title = currentNavItem ? currentNavItem.warmTitle : "Error";
 ---
 
@@ -27,24 +23,15 @@ const title = currentNavItem ? currentNavItem.warmTitle : "Error";
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <meta
-      name="description"
-      content="Hermita est un jeu qui se joue en coopération avec des amis."
-      <link
-      rel="preconnect"
-      href="https://fonts.googleapis.com"
-    />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Kanit:wght@100;200&family=Space+Grotesk:wght@300&display=swap"
-      rel="stylesheet"
-    />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@100;200&family=Space+Grotesk:wght@300&display=swap" rel="stylesheet">
     <title>{title}</title>
   </head>
   <body>
-    <!-- <Smoke /> -->
-    <Gears />
-    <Grid title={title} lang={lang}>
+    <Smoke />
+	  <Gears />
+    <Grid title={title}>
       <slot name="before" />
       <Scroll isHorizontal={horizontalScroll} calls={calls}>
         <slot />
@@ -55,8 +42,8 @@ const title = currentNavItem ? currentNavItem.warmTitle : "Error";
 </html>
 
 <style>
-  .shifted-gears {
-    position: fixed;
-    transform: translateY(-100vh);
-  }
+	.shifted-gears {
+		position: fixed;
+		transform: translateY(-100vh)
+	}
 </style>

@@ -3,7 +3,6 @@ import Section from "../components/Section.astro";
 import Layout from "../layouts/Layout.astro";
 // Get images from public folder in images/tiles
 const tiles = await Astro.glob("../../public/images/tiles/*.png");
-// repeat images
 
 // Get random boxes
 const randomBoxes = tiles.map((img, i) => ({
@@ -32,7 +31,7 @@ randomBoxes.sort(() => Math.random() - 0.5);
       </div>
     </div>
     <div class="wrapper" id="fighting" data-scroll-section="#fighting -> highlight; .bg-tiles -> jumping">
-      <Section title="Combat" imgURL="/design/spell.gif">
+      <Section title="Combat" imgURL="/design/spell.png">
         Le combat vous permettra de vous défouler et de vous amuser.
         Vous devrez combattre des monstres pour obtenir des ressources.
         Ces combats se font en coopération avec vos amis.
@@ -40,11 +39,11 @@ randomBoxes.sort(() => Math.random() - 0.5);
       </Section>
     </div>
     <div class="wrapper" id="adventure" data-scroll-section="#adventure -> highlight; .bg-tiles -> flying">
-      <Section title="Aventure">
+      <Section title="Aventure" imgURL="/design/map.png">
         L'aventure est un point clé du jeu.
         Vous devrez explorer les différentes îles pour trouver des ressources et des monstres.
-        Voyagez dans un bel univers pixel art et découvrez les secrets de ce monde.
-        Il n'y a plus qu'à vous souhaiter bonne chance !
+        Ces îles sont générées aléatoirement et vous pourrez ainsi découvrir de nouvelles choses à chaque fois.
+        Vous pourrez également trouver des coffres cachés qui vous permettront d'obtenir des récompenses.
       </Section>
     </div>
     <div class="wrapper" id="crafting" data-scroll-section="#crafting -> highlight; .bg-tiles -> scaling">
